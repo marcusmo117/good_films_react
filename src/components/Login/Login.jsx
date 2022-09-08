@@ -41,7 +41,7 @@ function Login() {
             // store the token into localstorage / cookie
             localStorage.setItem('user_token', jsonResponse.token)
 
-            navigate('/')
+            navigate('/auth')
         })
         .catch(err => {
             toast.error(err.message)
@@ -68,5 +68,5 @@ function Login() {
         </div>
     )
 }
-
+// need to hash password from FE
 export default Login
