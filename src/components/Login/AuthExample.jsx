@@ -23,8 +23,8 @@ function AuthExample() {
   return(
     <div className='auth-example'>
       <h3>authorised</h3>
-      <h3>account email: {data.data.data.email}</h3>
-      <h3>account username: {data.data.data.username}</h3>
+      <h3>account email: {data.data && (data.data.data.email)}</h3>
+      <h3>account username: {data.data && (data.data.data.username)}</h3>
     </div>
   )
 }
