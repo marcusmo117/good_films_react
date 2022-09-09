@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import MovieSection from "../movie-section/MovieSection";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import MovieSection from '../movie-section/MovieSection';
+import styles from './Index.scss'
 
 function Index() {
   const [popularMovies, setPopularMovies ] = useState({})
@@ -18,14 +19,14 @@ function Index() {
   }, []);
 
   return(
-    <div className="index">
+    <div className="section">
       <h1>Browse Movies</h1>
       <div className="popular">{
         popularMovies.data && (
           <MovieSection section={popularMovies.data.results} title="Popular" />
         )}
       </div>
-      <div className="popular">{
+      <div className="section">{
         topMovies.data && (
           <MovieSection section={topMovies.data.results} title="Top Rated" />
         )}
