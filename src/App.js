@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import React from "react";
 import "./App.css";
 import Index from "./components/home/index/Index";
+import MoviePage from "./components/movie-page/MoviePage";
 import Register from "./components/register/Register";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ToastContainer } from "react-toastify";
@@ -16,6 +17,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/movies" element={<Index />} />
+        <Route path="/movies/:movieApiId" element={<MoviePage />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/auth" element={<AuthExample />} />
