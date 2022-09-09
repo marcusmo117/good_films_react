@@ -1,32 +1,44 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import { Container, Row, Col } from 'react-bootstrap';
-import styles from './MoviePage.scss'
+import React, { useEffect, useState } from "react";
+// import axios from 'axios';
+import { useParams } from "react-router-dom";
+import { Container, Row, Col } from "react-bootstrap";
+import styles from "./MoviePage.scss";
+import apis from "../../utils/api";
 
 function MoviePage() {
-  const params = useParams()
-  const [movie, setMovie] = useState({})
+  const params = useParams();
+  const [movie, setMovie] = useState({});
 
   useEffect(() => {
     const fetchMovie = async () => {
-      const movieResult = await axios.get(`http://localhost:8000/api/v1/movies/${params.movieApiId}`)
-      setMovie(movieResult.data)
-    }
+      const movieResult = await apis.getMovie(params.movieApiId);
+      setMovie(movieResult.data);
+    };
 
     fetchMovie();
   }, []);
 
-  const { id, name, title, poster_path, popularity, release_date, runtime, overview, vote_average, vote_count } = movie;
-  console.log(movie)
+  const {
+    id,
+    name,
+    title,
+    poster_path,
+    popularity,
+    release_date,
+    runtime,
+    overview,
+    vote_average,
+    vote_count,
+  } = movie;
+  console.log(movie);
 
   return (
-    <div className='movie'>
+    <div className="movie">
       <Container>
-      <h1>{name ? (name) : (title)}</h1>
+        <h1>{name ? name : title}</h1>
         <Row>
           <Col md={3}>
-          <img src={`https://image.tmdb.org/t/p/original${poster_path}`}></img>
+            <img src={`https://image.tmdb.org/t/p/original${poster_path}`}></img>
           </Col>
           <Col md={9}>
             <p>Overview: {overview}</p>
@@ -38,7 +50,7 @@ function MoviePage() {
         </Row>
       </Container>
     </div>
-  )
+  );
 }
 
 export default MoviePage;

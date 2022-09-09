@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import apis from "../../utils/backend/profile";
 import { useParams } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import ReviewCard from "./ReviewCard";
@@ -11,14 +11,7 @@ function ProfilePage() {
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const profileResult = await axios.get(
-        `http://localhost:8000/api/v1/profiles/${params.username}`,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
+      const profileResult = await apis.getProfile(params.username, token);
       setProfile(profileResult.data);
     };
 
