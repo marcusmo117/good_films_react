@@ -6,9 +6,9 @@ function ReviewCard({ data }) {
   return (
     <div className="review-card">
       <Card>
-        <h5>{data.movieId}</h5>
-        <h5>{data.reviewText}</h5>
-        <h5>{data.rating}</h5>
+        <Card.Title>{data.movieTitle}</Card.Title>
+        <Card.Text>Review: {data.reviewText}</Card.Text>
+        <Card.Text>Rating: {data.rating}</Card.Text>
       </Card>
     </div>
   );

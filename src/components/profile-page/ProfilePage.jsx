@@ -33,7 +33,7 @@ function ProfilePage() {
     <div className="profile">
       <Container>
         <h1>Profile</h1>
-        <h2>{profile.username}</h2>
+        <h2 className="mb-5">{profile.username}</h2>
         {reviews}
       </Container>
     </div>
