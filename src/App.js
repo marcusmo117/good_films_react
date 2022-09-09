@@ -3,6 +3,7 @@ import React from "react";
 import "./App.css";
 import Index from "./components/home/index/Index";
 import MoviePage from "./components/movie-page/MoviePage";
+import ProfilePage from "./components/profile-page/ProfilePage";
 import Register from "./components/register/Register";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ToastContainer } from "react-toastify";
@@ -20,6 +21,7 @@ function App() {
         <Route path="/movies/:movieApiId" element={<MoviePage />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/profiles/:username" element={<ProfilePage />} />
         <Route path="/auth" element={<AuthExample />} />
         <Route path="/auth-fe" element={<Auth component={FeAuthExample} />} />
       </Routes>
