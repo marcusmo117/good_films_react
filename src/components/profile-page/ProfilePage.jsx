@@ -25,16 +25,13 @@ function ProfilePage() {
     fetchProfile();
   }, []);
 
-  const reviews =
-    profile.reviews &&
-    profile.reviews.map((review) => <ReviewCard key={review._id} data={review} />);
-
   return (
     <div className="profile">
       <Container>
         <h1>Profile</h1>
         <h2 className="mb-5">{profile.username}</h2>
-        {reviews}
+        {profile.reviews &&
+          profile.reviews.map((review) => <ReviewCard key={review._id} data={review} />)}
       </Container>
     </div>
   );
