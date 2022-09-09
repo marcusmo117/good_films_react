@@ -8,6 +8,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Login from "./components/login/Login";
 import AuthExample from "./components/login/AuthExample";
+import FeAuthExample from "./components/auth/FeAuthExample";
+import Auth from "./components/auth/Auth";
 
 function App() {
   return (
@@ -17,6 +19,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/auth" element={<AuthExample />} />
+        <Route path="/auth-fe" element={<Auth component={FeAuthExample} />} />
       </Routes>
       <ToastContainer />
     </div>
