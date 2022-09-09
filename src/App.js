@@ -11,6 +11,7 @@ import Login from "./components/login/Login";
 import AuthExample from "./components/login/AuthExample";
 import FeAuthExample from "./components/auth/FeAuthExample";
 import Auth from "./components/auth/Auth";
+import MoviesByGenre from "./components/home/index/MoviesByGenre";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path="/movies" element={<Index />} />
         <Route path="/movies/:movieApiId" element={<MoviePage />} />
+        <Route path="/movies/:genre/:genreId" element={<MoviesByGenre />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/auth" element={<AuthExample />} />

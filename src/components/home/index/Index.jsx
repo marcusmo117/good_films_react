@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import FilterDropdown from '../filter/FilterDropdown';
 import MovieSection from '../movie-section/MovieSection';
 import styles from './Index.scss'
 
@@ -21,7 +22,11 @@ function Index() {
   return(
     <div className="section">
       <h1>Browse Movies</h1>
-      <div className="popular">{
+      <div>
+        <FilterDropdown />
+      </div>
+
+      <div className="section">{
         popularMovies.data && (
           <MovieSection section={popularMovies.data.results} title="Popular" />
         )}
