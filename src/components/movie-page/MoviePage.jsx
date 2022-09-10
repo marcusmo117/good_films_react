@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import styles from "./MoviePage.scss";
-import apis from "../../utils/api";
+import apis from "../../utils/movie";
 
 function MoviePage() {
   const params = useParams();

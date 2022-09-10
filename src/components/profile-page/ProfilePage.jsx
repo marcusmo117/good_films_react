@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import apis from "../../utils/backend/profile";
+import apis from "../../utils/profile";
 import { useParams } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import { toast } from "react-toastify";

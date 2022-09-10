@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import FilterDropdown from "../filter/FilterDropdown";
 import MovieSection from "../movie-section/MovieSection";
 import styles from "./Index.scss";
-import apis from "../../../utils/api";
+import apis from "../../../utils/movie";
 
 function Index() {
   const [popularMovies, setPopularMovies] = useState({});
