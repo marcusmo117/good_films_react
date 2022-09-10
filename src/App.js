@@ -13,6 +13,7 @@ import AuthExample from "./components/login/AuthExample";
 import FeAuthExample from "./components/auth/FeAuthExample";
 import Auth from "./components/auth/Auth";
 import MoviesByGenre from "./components/home/index/MoviesByGenre";
+import Logout from "./components/logout/Logout";
 
 function App() {
   return (
