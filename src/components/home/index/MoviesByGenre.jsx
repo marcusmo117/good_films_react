@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import apis from "../../../utils/api";
+import apis from "../../../utils/movie";
 import MovieSection from "../movie-section/MovieSection";
 import FilterDropdown from "../filter/FilterDropdown";
 import styles from "./Index.scss";
