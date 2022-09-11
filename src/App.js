@@ -13,6 +13,7 @@ import Login from "./components/login/Login";
 import AuthExample from "./components/login/AuthExample";
 import FeAuthExample from "./components/auth/FeAuthExample";
 import Auth from "./components/auth/Auth";
+import Guest from "./components/auth/Guest";
 import MoviesByGenre from "./components/home/index/MoviesByGenre";
 import Logout from "./components/logout/Logout";
 
@@ -20,14 +21,27 @@ function App() {
   return (
     <div className="App">
       <Routes>
+        {/* 
+        Guest:user logged in, redirect to /
+              user logged out, show component
+        
+        Auth: user logged in, show component
+              user logged out, redirect to /login
+        
+        Neither: show component regardless 
+        */}
+        {/* TODO:
+        Landing: user logged in, redirect to /userfeed
+                 user logged out, redirect to /movies */}
+        <Route path="/" element={<Index />} />
         <Route path="/movies" element={<Index />} />
         <Route path="/movies/:movieApiId" element={<MoviePage />} />
         <Route path="/movies/:genre/:genreId" element={<MoviesByGenre />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Guest component={Register} />} />
+        <Route path="/login" element={<Guest component={Login} />} />
         <Route path="/profiles/:username" element={<Auth component={ProfilePage} />} />
-        <Route path="/auth" element={<AuthExample />} />
-        <Route path="/auth-fe" element={<Auth component={FeAuthExample} />} />
+        <Route path="/auth" element={<Auth component={AuthExample} />} />
+        {/* <Route path="/auth-fe" element={<Auth component={FeAuthExample} />} /> */}
         <Route path="*" element={<ErrorPage message="Page not found" />} />
       </Routes>
       <ToastContainer />
