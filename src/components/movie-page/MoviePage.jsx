@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-// import axios from 'axios';
 import { useParams } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import styles from "./MoviePage.scss";
-import apis from "../../utils/movie";
+import apis from "../../utils/api";
+import MovieRating from "./MovieRating";
+import MovieReview from "./MovieReview";
 
 function MoviePage() {
   const params = useParams();
@@ -46,6 +47,8 @@ function MoviePage() {
             <p>Duration: {runtime}</p>
             <p>Average Vote Score: {vote_average}</p>
             <p>No. of Votes: {vote_count}</p>
+            <div><MovieRating /></div>
+            <div><MovieReview /></div>
           </Col>
         </Row>
       </Container>
