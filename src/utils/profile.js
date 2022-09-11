@@ -14,6 +14,8 @@ const apis = {
 
     return response;
   },
+
+  updateFollow: async (follower, followee) => {},
 };
 
 export default apis;
