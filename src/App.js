@@ -22,7 +22,7 @@ function App() {
     <div className="App">
       <Routes>
         {/* 
-        Guest:user logged in, redirect to /
+        Guest: user logged in, redirect to /
               user logged out, show component
         
         Auth: user logged in, show component
