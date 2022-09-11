@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Rating from "react-rating"; 
-import apis from "../../utils/backend/auth";
+import apis from "../../utils/rating";
 
 function MovieRating() {
   const [rating, setRating] = useState(0);
