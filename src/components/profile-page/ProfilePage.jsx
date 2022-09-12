@@ -13,8 +13,7 @@ import "react-bootstrap-typeahead/css/Typeahead.css";
 
 function ProfilePage() {
   const params = useParams();
-  const profileInViewUsername = params.username;
-
+  const [profileInViewUsername, setProfileInViewUsername] = useState(params.username);
   const [errorMsg, setErrorMsg] = useState(null);
   const [profile, setProfile] = useState({});
   const [currentUserProfile, setCurrentUserProfile] = useState({});
@@ -23,6 +22,10 @@ function ProfilePage() {
 
   const token = "Bearer " + localStorage.getItem("user_token");
   const currentUserUsername = jwt_decode(token).data.username;
+
+  useEffect(() => {
+    setProfileInViewUsername(params.username);
+  }, [params.username]);
 
   useEffect(() => {
     const fetchProfile = async (type, username) => {
