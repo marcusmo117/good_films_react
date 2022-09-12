@@ -1,4 +1,4 @@
-import { Button } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 
 function FollowUnfollowButton({ isFollowing, updateFollowStatus }) {
   if (!isFollowing) {

@@ -1,6 +1,14 @@
 import axios from "axios";
 
 const apis = {
+  getProfiles: async (token) => {
+    const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/profiles/`, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    return response;
+  },
   getProfile: async (username, token) => {
     const response = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/api/v1/profiles/${username}`,
