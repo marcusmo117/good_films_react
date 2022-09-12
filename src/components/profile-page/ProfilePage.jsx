@@ -63,11 +63,9 @@ function ProfilePage() {
       setIsFollowing(true);
       return;
     }
-    if (e.target.innerText === "Unfollow") {
-      updateFollowing("unfollow");
-      setIsFollowing(false);
-      return;
-    }
+    updateFollowing("unfollow");
+    setIsFollowing(false);
+    return;
   };
 
   if (errorMsg) {
