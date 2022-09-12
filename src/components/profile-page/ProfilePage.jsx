@@ -7,9 +7,8 @@ import ReviewCard from "./ReviewCard";
 import ErrorPage from "../error-page/ErrorPage";
 import FollowingModal from "./FollowingModal";
 import FollowUnfollowButton from "./FollowUnfollowButton";
+import SearchUsers from "./SearchUsers";
 import jwt_decode from "jwt-decode";
-import { Typeahead } from "react-bootstrap-typeahead";
-import "react-bootstrap-typeahead/css/Typeahead.css";
 
 function ProfilePage() {
   const params = useParams();
@@ -41,7 +40,7 @@ function ProfilePage() {
       }
     };
 
-    const fetchFollowees = async () => {
+    const fetchAllUsers = async () => {
       try {
         const profilesResult = await apis.getProfiles(token);
         setFolloweeOptions(profilesResult.data.map((profile) => profile.username));
@@ -51,7 +50,7 @@ function ProfilePage() {
     };
     fetchProfile("profileInView", profileInViewUsername);
     fetchProfile("currentUser", currentUserUsername);
-    fetchFollowees();
+    fetchAllUsers();
   }, [profileInViewUsername]);
 
   useEffect(() => {
@@ -94,13 +93,9 @@ function ProfilePage() {
         <h1>Profile</h1>
         <Row className="d-flex justify-content-center mb-5">
           <Col xs={3}>
-            <Typeahead
-              minLength={2}
-              placeholder="Find someone new to follow!"
-              // onChange={(selected) => {
-              //   // Handle selections...
-              // }}
-              options={followeeOptions}
+            <SearchUsers
+              followeeOptions={followeeOptions}
+              profileInViewUsername={profileInViewUsername}
             />
           </Col>
         </Row>
