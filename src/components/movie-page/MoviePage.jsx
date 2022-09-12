@@ -24,7 +24,6 @@ function MoviePage() {
     name,
     title,
     poster_path,
-    popularity,
     release_date,
     runtime,
     overview,
@@ -39,7 +38,7 @@ function MoviePage() {
         <h1>{name ? name : title}</h1>
         <Row>
           <Col md={3}>
-            <img src={`https://image.tmdb.org/t/p/original${poster_path}`}></img>
+            <img src={`https://image.tmdb.org/t/p/original${poster_path}`} alt="movie-poster"></img>
           </Col>
           <Col md={9}>
             <p>Overview: {overview}</p>
