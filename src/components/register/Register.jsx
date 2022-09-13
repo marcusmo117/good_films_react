@@ -34,32 +34,6 @@ function Register() {
       toast.error(err.response.data.error);
       return;
     }
-
-    // fetch(`http://localhost:8000/api/v1/users/register`, {
-    //     method: 'POST',
-    //     body: JSON.stringify(formData),
-    //     headers: {
-    //         'Content-type': 'application/json',
-    //     },
-    // })
-    // .then(response => {
-    //     return response.json()
-    // })
-    // .then(jsonResponse => {
-    //     if (jsonResponse.error) {
-    //         toast.error(jsonResponse.error)
-    //         return
-    //     }
-    //     toast.success("Registration Successful!")
-
-    //     // store the token into localstorage / cookie
-    //     // localStorage.setItem('user_token', jsonResponse.token)
-
-    //     navigate('/login')
-    // })
-    // .catch(err => {
-    //     toast.error(err.message)
-    // })
   };
 
   return (
