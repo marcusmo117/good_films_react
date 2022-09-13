@@ -16,7 +16,6 @@ const LikeButton = ({ review, setReview, currentUserUsername }) => {
         ...review,
         userIdsWhoLiked: response.data.userIdsWhoLiked,
       };
-      console.log("updated review", updatedReview);
       setReview(updatedReview);
     } catch (err) {
       toast.error(err.response.data.error);
@@ -33,7 +32,6 @@ const LikeButton = ({ review, setReview, currentUserUsername }) => {
 
   useEffect(() => {
     if (Object.keys(review).length) {
-      console.log("like button use effect");
       const usernamesWhoLiked = review.userIdsWhoLiked.map((user) => user.username);
       setIsLiked(usernamesWhoLiked.includes(currentUserUsername));
     }

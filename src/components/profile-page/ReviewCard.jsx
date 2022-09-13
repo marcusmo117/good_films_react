@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
 import LikeButton from "./LikeButton";
+import CommentThread from "./CommentThread";
 import CommentBox from "./CommentBox";
-import Comment from "./Comment";
 import apis from "../../utils/review";
 import jwt_decode from "jwt-decode";
 import Collapse from "react-bootstrap/Collapse";
@@ -40,16 +40,12 @@ function ReviewCard({ reviewId }) {
           />
           <Card.Link onClick={() => setOpenCommentBox(!openCommentBox)}>Comment</Card.Link>
           <Card.Link>See review</Card.Link>
-          {/* <Collapse in={openCommentBox}>
+          <Collapse in={openCommentBox}>
             <div>
-              <CommentBox reviewId={reviewDetails._id} />
+              <CommentBox review={review} setReview={setReview} />
             </div>
           </Collapse>
-          <div className="comments">
-            {reviewDetails.commentIds.map((comment) => (
-              <Comment key={comment._id} commentDetails={comment} />
-            ))}
-          </div> */}
+          <CommentThread review={review} />
         </Card.Body>
       </Card>
     </div>

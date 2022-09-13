@@ -2,16 +2,28 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Row, Col } from "react-bootstrap";
 import { useRef } from "react";
+import { toast } from "react-toastify";
 import Card from "react-bootstrap/Card";
 import apis from "../../utils/review";
 
-function CommentBox({ reviewId }) {
+function CommentBox({ review, setReview }) {
   const commentInput = useRef();
   const token = "Bearer " + localStorage.getItem("user_token");
 
-  const handleSubmitComment = async () => {
-    const commentText = commentInput.current.value;
-    await apis.createComment(reviewId, commentText, token);
+  const createCommentBackend = async () => {
+    try {
+      const commentText = commentInput.current.value;
+      const response = await apis.createComment(review._id, commentText, token);
+      console.log("response for create comment", response);
+      const updatedReview = {
+        ...review,
+        commentIds: response.data.commentIds,
+      };
+      setReview(updatedReview);
+    } catch (err) {
+      toast.error(err.response.data.error);
+      return;
+    }
   };
 
   return (
@@ -29,7 +41,7 @@ function CommentBox({ reviewId }) {
                 />{" "}
               </div>
               <div className="d-flex justify-content-end">
-                <Button variant="primary" size="sm" onClick={handleSubmitComment}>
+                <Button variant="primary" size="sm" onClick={createCommentBackend}>
                   Post comment
                 </Button>
               </div>
