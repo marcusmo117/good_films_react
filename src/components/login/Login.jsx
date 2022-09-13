@@ -3,12 +3,13 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import apis from "../../utils/auth";
 
-function Login() {
+function Login(props) {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
+  
 
   const handleChange = (e) => {
     setFormData({
@@ -25,7 +26,8 @@ function Login() {
       toast.success("Login Successful!");
       // store the token into localstorage / cookie
       localStorage.setItem("user_token", response.data.token);
-      navigate("/auth");
+      props.setTokenState(response.data.token)
+      navigate("/");
     } catch (err) {
       toast.error(err.response.data.error);
       return;
@@ -58,6 +60,15 @@ function Login() {
     //     toast.error(err.message);
     //   });
   };
+
+  // useEffect(() => {
+  //   const token = localStorage.getItem("user_token");
+  //   console.log('useEffect running login' + token)
+  //     if (token) {
+  //       props.setTokenState(token)
+  //     }
+  // },[])
+
   return (
     <div className="login-page">
       <h1 className="my-5">Login</h1>

@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import Index from "./components/home/index/Index";
 import ErrorPage from "./components/error-page/ErrorPage";
@@ -11,17 +11,36 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Login from "./components/login/Login";
 import AuthExample from "./components/login/AuthExample";
-import FeAuthExample from "./components/auth/FeAuthExample";
 import Auth from "./components/auth/Auth";
 import Guest from "./components/auth/Guest";
 import MoviesByGenre from "./components/home/index/MoviesByGenre";
-import Logout from "./components/logout/Logout";
 import Navibar from "./components/navbar/Navbar";
+import jwt_decode from "jwt-decode";
 
 function App() {
+  const [tokenState, setTokenState] = useState();
+  const [user, setUser] = useState();
+
+  const getToken = async () => {
+    const token = await localStorage.getItem("user_token");
+    setTokenState(token);
+    if (tokenState) {
+      setUser(jwt_decode(tokenState).data.username);
+    }
+  };
+
+  useEffect(() => {
+    getToken();
+  }, [tokenState]);
+
   return (
     <div className="App">
-      <Navibar />
+      {/* lifting state */}
+      <Navibar
+        tokenState={tokenState}
+        user={user}
+        setTokenState={setTokenState}
+      />
       <Routes>
         {/* 
         Guest: user logged in, redirect to /
@@ -40,13 +59,21 @@ function App() {
         <Route path="/movies/:movieApiId" element={<MoviePage />} />
         <Route path="/movies/:genre/:genreId" element={<MoviesByGenre />} />
         <Route path="/register" element={<Guest component={Register} />} />
-        <Route path="/login" element={<Guest component={Login} />} />
+        <Route
+          path="/login"
+          element={
+            <Guest
+              component={Login}
+              setTokenState={setTokenState}
+              user={user}
+            />
+          }
+        />
         <Route
           path="/profiles/:username"
           element={<Auth component={ProfilePage} />}
         />
         <Route path="/auth" element={<Auth component={AuthExample} />} />
-        {/* <Route path="/auth-fe" element={<Auth component={FeAuthExample} />} /> */}
         <Route path="*" element={<ErrorPage message="Page not found" />} />
       </Routes>
       <ToastContainer />
