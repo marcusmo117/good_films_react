@@ -5,7 +5,7 @@ import { useRef } from "react";
 import Card from "react-bootstrap/Card";
 import apis from "../../utils/review";
 
-function CommentBox({ reviewId, fetchProfile }) {
+function CommentBox({ reviewId }) {
   const commentInput = useRef();
   const token = "Bearer " + localStorage.getItem("user_token");
 
