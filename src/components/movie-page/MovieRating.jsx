@@ -6,7 +6,8 @@ import { useParams } from "react-router-dom";
 function MovieRating() {
   const params = useParams();
   const [rating, setRating] = useState("");
-  const token = 'Bearer ' + localStorage.getItem('user_token')
+  const token = "Bearer " + localStorage.getItem("user_token")
+  const tokenExists = localStorage.getItem("user_token")
 
   function handleRatingSubmit(e) {
 
@@ -14,26 +15,22 @@ function MovieRating() {
 
     // set the rating on click
     setRating(e)
-    console.log("Movie Score:", rating)
-    console.log("Movie ID:", movieApiId)
-    console.log("Token:", token)
+    console.log(rating)
 
-    // post the rating to backend
+    // post the rating and movie Id to backend
     try {
       apis.rating({rating}, token, movieApiId);
       return;
     } catch (error) {
       return(error.response.data)
     }
-
   }
 
   return(
-    
     <div className="rating">
       <h3>Rate this movie</h3>
       <div>
-          {!token ? 
+          {!tokenExists ? 
           "You must be logged in to rate"
           :
           <Rating
