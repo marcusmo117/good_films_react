@@ -16,10 +16,12 @@ import Auth from "./components/auth/Auth";
 import Guest from "./components/auth/Guest";
 import MoviesByGenre from "./components/home/index/MoviesByGenre";
 import Logout from "./components/logout/Logout";
+import Navibar from "./components/navbar/Navbar";
 
 function App() {
   return (
     <div className="App">
+      <Navibar />
       <Routes>
         {/* 
         Guest: user logged in, redirect to /
@@ -39,7 +41,10 @@ function App() {
         <Route path="/movies/:genre/:genreId" element={<MoviesByGenre />} />
         <Route path="/register" element={<Guest component={Register} />} />
         <Route path="/login" element={<Guest component={Login} />} />
-        <Route path="/profiles/:username" element={<Auth component={ProfilePage} />} />
+        <Route
+          path="/profiles/:username"
+          element={<Auth component={ProfilePage} />}
+        />
         <Route path="/auth" element={<Auth component={AuthExample} />} />
         {/* <Route path="/auth-fe" element={<Auth component={FeAuthExample} />} /> */}
         <Route path="*" element={<ErrorPage message="Page not found" />} />
