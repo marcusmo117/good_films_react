@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
 import { Card } from "react-bootstrap";
 import LikeButton from "./LikeButton";
+import CommentBox from "./CommentBox";
 import apis from "../../utils/review";
 import jwt_decode from "jwt-decode";
+
+import Collapse from "react-bootstrap/Collapse";
 
 function ReviewCard({ reviewDetails }) {
   const token = "Bearer " + localStorage.getItem("user_token");
@@ -12,6 +14,7 @@ function ReviewCard({ reviewDetails }) {
   const reviewId = reviewDetails._id;
 
   const [reviewIsLiked, setReviewIsLiked] = useState(false);
+  const [openCommentBox, setOpenCommentBox] = useState(false);
 
   useEffect(() => {
     const usernamesWhoLiked = reviewDetails.userIdsWhoLiked.map((user) => user.username);
@@ -43,13 +46,16 @@ function ReviewCard({ reviewDetails }) {
       <Card>
         <Card.Body>
           <Card.Title>{reviewDetails.movieTitle}</Card.Title>
-          {/* {isCurrentUser && <Card.Link href="#">Edit Review</Card.Link>} */}
           <Card.Text>Review: {reviewDetails.reviewText}</Card.Text>
           <Card.Text>Rating: {reviewDetails.rating}</Card.Text>
-          {/* to do: number of likes */}
           <LikeButton reviewIsLiked={reviewIsLiked} updateLikes={updateLikes} />
-          <Card.Link>Comment</Card.Link>
+          <Card.Link onClick={() => setOpenCommentBox(!openCommentBox)}>Comment</Card.Link>
           <Card.Link>See review</Card.Link>
+          <Collapse in={openCommentBox}>
+            <div>
+              <CommentBox />
+            </div>
+          </Collapse>
         </Card.Body>
       </Card>
     </div>

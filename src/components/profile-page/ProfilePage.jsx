@@ -104,6 +104,7 @@ function ProfilePage() {
           <h2>{profile.username}</h2>
           {!profile.isCurrentUser && (
             <FollowUnfollowButton
+              profileInViewUsername={profileInViewUsername}
               isFollowing={isFollowing}
               updateFollowStatus={updateFollowStatus}
             />

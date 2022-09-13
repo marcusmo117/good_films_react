@@ -4,7 +4,7 @@ const apis = {
   updateLikes: async (reviewId, token, type) => {
     console.log("UPDATE LIKES");
     const response = await axios.patch(
-      `${process.env.REACT_APP_BACKEND_URL}/api/v1/reviews/${type}`,
+      `${process.env.REACT_APP_BACKEND_URL}/api/v1/reviews/${reviewId}/${type}`,
       { reviewId },
       {
         headers: {
