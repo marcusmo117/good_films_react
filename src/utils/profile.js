@@ -24,9 +24,8 @@ const apis = {
   },
 
   updateFollowing: async (followee, token, type) => {
-    console.log("UPDATE FOLLOWING");
     const response = await axios.patch(
-      `${process.env.REACT_APP_BACKEND_URL}/api/v1/profiles/${type}`,
+      `${process.env.REACT_APP_BACKEND_URL}/api/v1/profiles/${followee}/${type}`,
       { followee },
       {
         headers: {

@@ -1,55 +1,51 @@
 import { useState, useEffect } from "react";
-import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
 import { Card } from "react-bootstrap";
 import LikeButton from "./LikeButton";
+import CommentThread from "./CommentThread";
+import CommentBox from "./CommentBox";
 import apis from "../../utils/review";
 import jwt_decode from "jwt-decode";
+import Collapse from "react-bootstrap/Collapse";
 
-function ReviewCard({ reviewDetails }) {
+function ReviewCard({ reviewId }) {
   const token = "Bearer " + localStorage.getItem("user_token");
   const currentUserUsername = jwt_decode(token).data.username;
-  const reviewId = reviewDetails._id;
 
-  const [reviewIsLiked, setReviewIsLiked] = useState(false);
+  const [review, setReview] = useState({});
+  const [openCommentBox, setOpenCommentBox] = useState(false);
 
+  // if (reviewDetails) {
+  //   console.log("reviewdetails", reviewDetails);
+  // }
   useEffect(() => {
-    const usernamesWhoLiked = reviewDetails.userIdsWhoLiked.map((user) => user.username);
-    if (usernamesWhoLiked.includes(currentUserUsername)) {
-      setReviewIsLiked(true);
-    }
-  }, [reviewDetails]);
+    const fetchReview = async () => {
+      const reviewResult = await apis.getReview(reviewId, token);
+      setReview(reviewResult.data);
+    };
 
-  const updateLikesBackend = async (type) => {
-    try {
-      await apis.updateLikes(reviewId, token, type);
-    } catch (err) {
-      toast.error(err.response.data.error);
-      return;
-    }
-  };
-  const updateLikes = (ev) => {
-    if (ev.target.checked) {
-      updateLikesBackend("like");
-      setReviewIsLiked(true);
-    } else {
-      updateLikesBackend("unlike");
-      setReviewIsLiked(false);
-    }
-  };
+    fetchReview();
+  }, []);
 
   return (
     <div className="review-card">
       <Card>
         <Card.Body>
-          <Card.Title>{reviewDetails.movieTitle}</Card.Title>
-          {/* {isCurrentUser && <Card.Link href="#">Edit Review</Card.Link>} */}
-          <Card.Text>Review: {reviewDetails.reviewText}</Card.Text>
-          <Card.Text>Rating: {reviewDetails.rating}</Card.Text>
-          {/* to do: number of likes */}
-          <LikeButton reviewIsLiked={reviewIsLiked} updateLikes={updateLikes} />
-          <Card.Link>Comment</Card.Link>
+          <Card.Title>{review.movieTitle}</Card.Title>
+          <Card.Text>Review: {review.reviewText}</Card.Text>
+          <Card.Text>Rating: {review.rating}</Card.Text>
+          <LikeButton
+            review={review}
+            setReview={setReview}
+            currentUserUsername={currentUserUsername}
+          />
+          <Card.Link onClick={() => setOpenCommentBox(!openCommentBox)}>Comment</Card.Link>
           <Card.Link>See review</Card.Link>
+          <Collapse in={openCommentBox}>
+            <div>
+              <CommentBox review={review} setReview={setReview} />
+            </div>
+          </Collapse>
+          <CommentThread review={review} />
         </Card.Body>
       </Card>
     </div>

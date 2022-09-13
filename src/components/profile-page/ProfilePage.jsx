@@ -39,7 +39,6 @@ function ProfilePage() {
         setErrorMsg(err.response.data.error);
       }
     };
-
     const fetchAllUsers = async () => {
       try {
         const profilesResult = await apis.getProfiles(token);
@@ -48,6 +47,7 @@ function ProfilePage() {
         toast.error(err.response.data.error);
       }
     };
+    setIsFollowing(false);
     fetchProfile("profileInView", profileInViewUsername);
     fetchProfile("currentUser", currentUserUsername);
     fetchAllUsers();
@@ -104,6 +104,7 @@ function ProfilePage() {
           <h2>{profile.username}</h2>
           {!profile.isCurrentUser && (
             <FollowUnfollowButton
+              profileInViewUsername={profileInViewUsername}
               isFollowing={isFollowing}
               updateFollowStatus={updateFollowStatus}
             />
@@ -116,7 +117,7 @@ function ProfilePage() {
         </div>
         <div className="reviews">
           {profile.reviews &&
-            profile.reviews.map((review) => <ReviewCard key={review._id} reviewDetails={review} />)}
+            profile.reviews.map((review) => <ReviewCard key={review._id} reviewId={review._id} />)}
         </div>
       </Container>
     </div>
