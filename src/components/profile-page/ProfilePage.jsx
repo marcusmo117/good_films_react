@@ -61,7 +61,7 @@ function ProfilePage() {
     }
   }, [profile, currentUserProfile]);
 
-  const updateFollowing = async (type) => {
+  const updateFollowingBackend = async (type) => {
     try {
       const followee = profileInViewUsername;
       await apis.updateFollowing(followee, token, type);
@@ -74,11 +74,11 @@ function ProfilePage() {
 
   const updateFollowStatus = (e) => {
     if (e.target.innerText === "Follow") {
-      updateFollowing("follow");
+      updateFollowingBackend("follow");
       setIsFollowing(true);
       return;
     }
-    updateFollowing("unfollow");
+    updateFollowingBackend("unfollow");
     setIsFollowing(false);
     return;
   };

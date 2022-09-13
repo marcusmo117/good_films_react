@@ -30,33 +30,6 @@ function Login() {
       toast.error(err.response.data.error);
       return;
     }
-
-    // fetch(`http://localhost:8000/api/v1/users/login`, {
-    //   method: "POST",
-    //   body: JSON.stringify(formData),
-    //   headers: {
-    //     "Content-type": "application/json",
-    //   },
-    // })
-    //   .then((response) => {
-    //     return response.json();
-    //   })
-    //   .then((response) => {
-    //     if (response.error) {
-    //       toast.error(response.error);
-    //       return;
-    //     }
-
-    //     toast.success("Login Successful!");
-
-    //     // store the token into localstorage / cookie
-    //     localStorage.setItem("user_token", response.token);
-
-    //     navigate("/auth");
-    //   })
-    //   .catch((err) => {
-    //     toast.error(err.message);
-    //   });
   };
   return (
     <div className="login-page">
