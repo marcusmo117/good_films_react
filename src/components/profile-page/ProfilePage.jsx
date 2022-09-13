@@ -117,7 +117,7 @@ function ProfilePage() {
         </div>
         <div className="reviews">
           {profile.reviews &&
-            profile.reviews.map((review) => <ReviewCard key={review._id} reviewDetails={review} />)}
+            profile.reviews.map((review) => <ReviewCard key={review._id} reviewId={review._id} />)}
         </div>
       </Container>
     </div>
