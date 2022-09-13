@@ -3,19 +3,22 @@ import { toast } from "react-toastify";
 import { Card } from "react-bootstrap";
 import LikeButton from "./LikeButton";
 import CommentBox from "./CommentBox";
+import Comment from "./Comment";
 import apis from "../../utils/review";
 import jwt_decode from "jwt-decode";
 
 import Collapse from "react-bootstrap/Collapse";
 
-function ReviewCard({ reviewDetails }) {
+function ReviewCard({ reviewDetails, fetchProfile }) {
   const token = "Bearer " + localStorage.getItem("user_token");
   const currentUserUsername = jwt_decode(token).data.username;
-  const reviewId = reviewDetails._id;
 
   const [reviewIsLiked, setReviewIsLiked] = useState(false);
   const [openCommentBox, setOpenCommentBox] = useState(false);
 
+  if (reviewDetails) {
+    console.log("reviewdetails", reviewDetails);
+  }
   useEffect(() => {
     const usernamesWhoLiked = reviewDetails.userIdsWhoLiked.map((user) => user.username);
     if (usernamesWhoLiked.includes(currentUserUsername)) {
@@ -25,7 +28,7 @@ function ReviewCard({ reviewDetails }) {
 
   const updateLikesBackend = async (type) => {
     try {
-      await apis.updateLikes(reviewId, token, type);
+      await apis.updateLikes(reviewDetails._id, token, type);
     } catch (err) {
       toast.error(err.response.data.error);
       return;
@@ -53,9 +56,14 @@ function ReviewCard({ reviewDetails }) {
           <Card.Link>See review</Card.Link>
           <Collapse in={openCommentBox}>
             <div>
-              <CommentBox />
+              <CommentBox reviewId={reviewDetails._id} fetchProfile={fetchProfile} />
             </div>
           </Collapse>
+          <div className="comments">
+            {reviewDetails.commentIds.map((comment) => (
+              <Comment key={comment._id} commentDetails={comment} />
+            ))}
+          </div>
         </Card.Body>
       </Card>
     </div>

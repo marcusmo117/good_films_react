@@ -39,7 +39,6 @@ function ProfilePage() {
         setErrorMsg(err.response.data.error);
       }
     };
-
     const fetchAllUsers = async () => {
       try {
         const profilesResult = await apis.getProfiles(token);
@@ -48,6 +47,7 @@ function ProfilePage() {
         toast.error(err.response.data.error);
       }
     };
+    setIsFollowing(false);
     fetchProfile("profileInView", profileInViewUsername);
     fetchProfile("currentUser", currentUserUsername);
     fetchAllUsers();
