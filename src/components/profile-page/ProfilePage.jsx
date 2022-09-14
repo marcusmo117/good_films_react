@@ -52,14 +52,6 @@ function ProfilePage() {
     fetchAllUsers();
   }, [profileInViewUsername]);
 
-  // useEffect(() => {
-  //   if (Object.keys(profile).length && Object.keys(currentUserProfile).length) {
-  //     if (currentUserProfile.followees.includes(profile.username)) {
-  //       setIsFollowing(true);
-  //     }
-  //   }
-  // }, [profile, currentUserProfile]);
-
   if (errorMsg) {
     return <ErrorPage message={errorMsg} />;
   }
@@ -94,7 +86,9 @@ function ProfilePage() {
         </div>
         <div className="reviews">
           {profile.reviews &&
-            profile.reviews.map((review) => <ReviewCard key={review._id} reviewId={review._id} />)}
+            profile.reviews.map((review) => (
+              <ReviewCard key={review._id} reviewId={review._id} page={"profile-page"} />
+            ))}
         </div>
       </Container>
     </div>

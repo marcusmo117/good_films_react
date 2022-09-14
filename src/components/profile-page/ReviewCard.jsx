@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import { useNavigate } from "react-router-dom";
 import LikeButton from "./LikeButton";
 import CommentThread from "./CommentThread";
 import CommentBox from "./CommentBox";
@@ -9,11 +10,12 @@ import jwt_decode from "jwt-decode";
 import Collapse from "react-bootstrap/Collapse";
 import Button from "react-bootstrap/Button";
 
-function ReviewCard({ reviewId }) {
+function ReviewCard({ reviewId, page }) {
   const token = "Bearer " + localStorage.getItem("user_token");
+  const navigate = useNavigate();
   const currentUserUsername = jwt_decode(token).data.username;
-
   const [review, setReview] = useState({});
+  const [areButtonsVisible, setAreButtonsVisible] = useState(false);
   const [openCommentBox, setOpenCommentBox] = useState(false);
 
   useEffect(() => {
@@ -24,6 +26,19 @@ function ReviewCard({ reviewId }) {
 
     fetchReview();
   }, []);
+
+  useEffect(() => {
+    if (review.authorUserId && page === "review-page") {
+      if (review.authorUserId.username === currentUserUsername) {
+        setAreButtonsVisible(true);
+      }
+    }
+  }, [review]);
+
+  const deleteReviewBackend = async () => {
+    await apis.deleteReview(reviewId, token);
+    navigate(`/profiles/${currentUserUsername}`);
+  };
 
   if (!review.authorUserId) {
     console.log("loading");
@@ -62,11 +77,19 @@ function ReviewCard({ reviewId }) {
           <CommentThread review={review} />
         </Card.Body>
       </Card>
-      <Button className="me-3" variant="primary">
-        Edit
-      </Button>
+      {areButtonsVisible ? (
+        <div className="review-buttons">
+          <Button className="me-3" variant="primary">
+            Edit
+          </Button>
 
-      <Button variant="danger">Delete</Button>
+          <Button onClick={deleteReviewBackend} variant="danger">
+            Delete
+          </Button>
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }
