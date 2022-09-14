@@ -10,7 +10,7 @@ function ReviewPage() {
   return (
     <div className="profile-page">
       <Container>
-        <ReviewCard key={reviewId} reviewId={reviewId} />
+        <ReviewCard key={reviewId} reviewId={reviewId} page={"review-page"} />
       </Container>
     </div>
   );
