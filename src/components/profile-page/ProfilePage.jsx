@@ -13,11 +13,10 @@ import jwt_decode from "jwt-decode";
 function ProfilePage() {
   const params = useParams();
   const [profileInViewUsername, setProfileInViewUsername] = useState(params.username);
-  const [errorMsg, setErrorMsg] = useState(null);
   const [profile, setProfile] = useState({});
   const [currentUserProfile, setCurrentUserProfile] = useState({});
-  const [isFollowing, setIsFollowing] = useState(false);
   const [followeeOptions, setFolloweeOptions] = useState([]);
+  const [errorMsg, setErrorMsg] = useState(null);
 
   const token = "Bearer " + localStorage.getItem("user_token");
   const currentUserUsername = jwt_decode(token).data.username;
@@ -47,41 +46,19 @@ function ProfilePage() {
         toast.error(err.response.data.error);
       }
     };
-    setIsFollowing(false);
+    // setIsFollowing(false);
     fetchProfile("profileInView", profileInViewUsername);
     fetchProfile("currentUser", currentUserUsername);
     fetchAllUsers();
   }, [profileInViewUsername]);
 
-  useEffect(() => {
-    if (Object.keys(profile).length && Object.keys(currentUserProfile).length) {
-      if (currentUserProfile.followees.includes(profile.username)) {
-        setIsFollowing(true);
-      }
-    }
-  }, [profile, currentUserProfile]);
-
-  const updateFollowingBackend = async (type) => {
-    try {
-      const followee = profileInViewUsername;
-      await apis.updateFollowing(followee, token, type);
-      toast.success(`${type} ${followee} successful!`);
-    } catch (err) {
-      toast.error(err.response.data.error);
-      return;
-    }
-  };
-
-  const updateFollowStatus = (e) => {
-    if (e.target.innerText === "Follow") {
-      updateFollowingBackend("follow");
-      setIsFollowing(true);
-      return;
-    }
-    updateFollowingBackend("unfollow");
-    setIsFollowing(false);
-    return;
-  };
+  // useEffect(() => {
+  //   if (Object.keys(profile).length && Object.keys(currentUserProfile).length) {
+  //     if (currentUserProfile.followees.includes(profile.username)) {
+  //       setIsFollowing(true);
+  //     }
+  //   }
+  // }, [profile, currentUserProfile]);
 
   if (errorMsg) {
     return <ErrorPage message={errorMsg} />;
@@ -105,8 +82,8 @@ function ProfilePage() {
           {!profile.isCurrentUser && (
             <FollowUnfollowButton
               profileInViewUsername={profileInViewUsername}
-              isFollowing={isFollowing}
-              updateFollowStatus={updateFollowStatus}
+              currentUserProfile={currentUserProfile}
+              setCurrentUserProfile={setCurrentUserProfile}
             />
           )}
           <FollowingModal
