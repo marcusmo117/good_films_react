@@ -7,6 +7,7 @@ import CommentBox from "./CommentBox";
 import apis from "../../utils/review";
 import jwt_decode from "jwt-decode";
 import Collapse from "react-bootstrap/Collapse";
+import Button from "react-bootstrap/Button";
 
 function ReviewCard({ reviewId }) {
   const token = "Bearer " + localStorage.getItem("user_token");
@@ -15,9 +16,6 @@ function ReviewCard({ reviewId }) {
   const [review, setReview] = useState({});
   const [openCommentBox, setOpenCommentBox] = useState(false);
 
-  // if (reviewDetails) {
-  //   console.log("reviewdetails", reviewDetails);
-  // }
   useEffect(() => {
     const fetchReview = async () => {
       const reviewResult = await apis.getReview(reviewId, token);
@@ -37,7 +35,7 @@ function ReviewCard({ reviewId }) {
       <Card>
         <Card.Body>
           <Card.Title>{review.movieTitle}</Card.Title>
-          <LinkContainer to={"/profiles/" + review.authorUserId && review.authorUserId.username}>
+          <LinkContainer to={`/profiles/${review.authorUserId && review.authorUserId.username}`}>
             <Card.Link>{review.authorUserId && review.authorUserId.username}</Card.Link>
           </LinkContainer>
           {review.reviewText ? <Card.Text>Review: {review.reviewText}</Card.Text> : <></>}
@@ -64,6 +62,11 @@ function ReviewCard({ reviewId }) {
           <CommentThread review={review} />
         </Card.Body>
       </Card>
+      <Button className="me-3" variant="primary">
+        Edit
+      </Button>
+
+      <Button variant="danger">Delete</Button>
     </div>
   );
 }
