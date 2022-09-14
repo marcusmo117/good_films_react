@@ -5,6 +5,7 @@ import Index from "./components/home/index/Index";
 import ErrorPage from "./components/error-page/ErrorPage";
 import MoviePage from "./components/movie-page/MoviePage";
 import ProfilePage from "./components/profile-page/ProfilePage";
+import ReviewPage from "./components/review-page/ReviewPage";
 import Register from "./components/register/Register";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ToastContainer } from "react-toastify";
@@ -36,11 +37,7 @@ function App() {
   return (
     <div className="App">
       {/* lifting state */}
-      <Navibar
-        tokenState={tokenState}
-        user={user}
-        setTokenState={setTokenState}
-      />
+      <Navibar tokenState={tokenState} user={user} setTokenState={setTokenState} />
       <Routes>
         {/* 
         Guest: user logged in, redirect to /
@@ -61,18 +58,10 @@ function App() {
         <Route path="/register" element={<Guest component={Register} />} />
         <Route
           path="/login"
-          element={
-            <Guest
-              component={Login}
-              setTokenState={setTokenState}
-              user={user}
-            />
-          }
+          element={<Guest component={Login} setTokenState={setTokenState} user={user} />}
         />
-        <Route
-          path="/profiles/:username"
-          element={<Auth component={ProfilePage} />}
-        />
+        <Route path="/profiles/:username" element={<Auth component={ProfilePage} />} />
+        <Route path="/reviews/:reviewId" element={<Auth component={ReviewPage} />} />
         <Route path="/auth" element={<Auth component={AuthExample} />} />
         <Route path="*" element={<ErrorPage message="Page not found" />} />
       </Routes>

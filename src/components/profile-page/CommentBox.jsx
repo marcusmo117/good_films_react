@@ -26,6 +26,11 @@ function CommentBox({ review, setReview }) {
     }
   };
 
+  const createComment = async () => {
+    await createCommentBackend();
+    commentInput.current.value = "";
+  };
+
   return (
     <>
       <Row className="d-flex justify-content-center">
@@ -41,7 +46,7 @@ function CommentBox({ review, setReview }) {
                 />{" "}
               </div>
               <div className="d-flex justify-content-end">
-                <Button variant="primary" size="sm" onClick={createCommentBackend}>
+                <Button variant="primary" size="sm" onClick={createComment}>
                   Post comment
                 </Button>
               </div>
