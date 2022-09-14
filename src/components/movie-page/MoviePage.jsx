@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import styles from "./MoviePage.scss";
 import apis from "../../utils/movie";
-import MovieRating from "./MovieRating";
 import MovieReview from "./MovieReview";
 
 function MoviePage() {
@@ -43,10 +42,9 @@ function MoviePage() {
           <Col md={9}>
             <p>Overview: {overview}</p>
             <p>Release Date: {release_date}</p>
-            <p>Duration: {runtime}</p>
+            <p>Duration: {runtime} mins</p>
             <p>Average Vote Score: {vote_average}</p>
             <p>No. of Votes: {vote_count}</p>
-            <div><MovieRating /></div>
             <div><MovieReview /></div>
           </Col>
         </Row>
