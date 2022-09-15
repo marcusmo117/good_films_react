@@ -52,6 +52,7 @@ function Navibar({tokenState, user, setTokenState}) {
           <Container fluid className="d-flex justify-content-end">
             <Nav.Link className="d-inline-block mx-4">
               <Link to={"/login"} style={{ color: 'inherit', textDecoration: 'inherit' }}>Login</Link>
+
             </Nav.Link>
             <Nav.Link className="d-inline-block mx-4">
               <Link to={"/register"} style={{ color: 'inherit', textDecoration: 'inherit' }}>Register</Link>

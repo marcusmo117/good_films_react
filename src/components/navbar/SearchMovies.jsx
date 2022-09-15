@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
-import { Typeahead, Menu, MenuItem } from "react-bootstrap-typeahead";
+import { AsyncTypeahead, Typeahead, Menu, MenuItem } from "react-bootstrap-typeahead";
+import { render } from "react-dom";
 import { useNavigate } from "react-router-dom";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 
