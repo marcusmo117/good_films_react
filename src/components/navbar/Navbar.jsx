@@ -16,7 +16,9 @@ function Navibar({ tokenState, user, setTokenState }) {
               Browse
             </Nav.Link>
           </Col>
-          <Col xs={3}>{/* <SearchMovies /> */}</Col>
+          <Col xs={3}>
+            <SearchMovies />
+          </Col>
           <Col className="d-flex justify-content-end align-items-center">
             <NavDropdown
               className="me-4"
@@ -40,7 +42,9 @@ function Navibar({ tokenState, user, setTokenState }) {
               Browse
             </Nav.Link>
           </Col>
-          <Col xs={3}>{/* <SearchMovies /> */}</Col>
+          <Col xs={3}>
+            <SearchMovies />
+          </Col>
           <Col className="d-flex justify-content-end align-items-center">
             <Nav.Link className="d-inline-block me-4" href="/login">
               Login
