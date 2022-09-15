@@ -12,6 +12,17 @@ const apis = {
     );
     return response;
   },
+  deleteReview: async (reviewId, token) => {
+    const response = await axios.delete(
+      `${process.env.REACT_APP_BACKEND_URL}/api/v1/reviews/${reviewId}`,
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return response;
+  },
   updateLikes: async (reviewId, token, type) => {
     const response = await axios.patch(
       `${process.env.REACT_APP_BACKEND_URL}/api/v1/reviews/${reviewId}/${type}`,
@@ -39,6 +50,19 @@ const apis = {
       }
     );
     return response;
+  },
+
+  createReview: async (userReview, token, movieApiId) => {
+    const response = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/api/v1/reviews/${movieApiId}`,
+      userReview,
+      {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: token,
+        },
+      }
+    );
   },
 };
 
