@@ -1,8 +1,20 @@
 import { Navbar, Nav, NavDropdown, Container, Button, Form } from 'react-bootstrap';
 import LogoutComp from '../logout/Logout';
-import {Link, NavLink} from "react-router-dom"
+import {Link} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
+
 
 function Navibar({tokenState, user, setTokenState}) {
+
+  const navigate = useNavigate()
+  
+  const navToProfile = () => {
+    navigate("/profiles/" + user)
+  }
+
+  const navToFollowing = () => {
+    navigate("/profiles/" + user)
+  }
   
   return (
     <Navbar bg="dark" variant="dark" sticky="top" expand="lg" style={{color:"white"}}>
@@ -24,16 +36,12 @@ function Navibar({tokenState, user, setTokenState}) {
             <Button variant="success">Search</Button>
           </Form>
           <NavDropdown className="mx-4" title={"Hi, " + user + "!"} id="navbarDropdown" align="end">
-            <NavDropdown.Item id="profileDropdown">
-              <NavLink to={"/profiles/" + user} style={{ color: 'inherit', textDecoration: 'inherit' }}>Profile</NavLink>
-            </NavDropdown.Item>
-            {/* <NavDropdown.Item id="followingDropdown">
-              <Link to={"/profiles/" + user} style={{ color: 'inherit', textDecoration: 'inherit' }}>Following</Link>
-            </NavDropdown.Item>
+            <NavDropdown.Item id="profileDropdown" onClick={navToProfile}>Profile</NavDropdown.Item>
+            <NavDropdown.Item id="followingDropdown" onClick={navToFollowing}>Following</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item id="logoutDropdown">
               <LogoutComp setTokenState={setTokenState}/>
-            </NavDropdown.Item> */}
+            </NavDropdown.Item>
           </NavDropdown>
         </Container>
       :
