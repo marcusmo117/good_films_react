@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { Navbar, Nav, NavDropdown, Container, Button, Form } from 'react-bootstrap';
 import LogoutComp from '../logout/Logout';
 import {Link} from "react-router-dom"
@@ -59,7 +58,7 @@ function Navibar({tokenState, user, setTokenState}) {
             </Nav.Link>
           </Container>
         </Container>
-      )}
+      }
     </Navbar>
   );
 }

@@ -12,6 +12,7 @@ const apis = {
     );
     return response;
   },
+
   deleteReview: async (reviewId, token) => {
     const response = await axios.delete(
       `${process.env.REACT_APP_BACKEND_URL}/api/v1/reviews/${reviewId}`,
@@ -23,6 +24,21 @@ const apis = {
     );
     return response;
   },
+
+  updateReview: async (userReview, token, reviewId) => {
+    const response = await axios.put(
+      `${process.env.REACT_APP_BACKEND_URL}/api/v1/reviews/${reviewId}`,
+      { userReview },
+      {
+        headers: {
+          Authorization: token,
+          "Content-type": "application/json",
+        },
+      }
+    );
+    return response;
+  },
+
   updateLikes: async (reviewId, token, type) => {
     const response = await axios.patch(
       `${process.env.REACT_APP_BACKEND_URL}/api/v1/reviews/${reviewId}/${type}`,

@@ -9,6 +9,7 @@ import apis from "../../utils/review";
 import jwt_decode from "jwt-decode";
 import Collapse from "react-bootstrap/Collapse";
 import Button from "react-bootstrap/Button";
+import { useParams } from "react-router-dom";
 
 function ReviewCard({ reviewId, page }) {
   const token = "Bearer " + localStorage.getItem("user_token");
@@ -17,6 +18,7 @@ function ReviewCard({ reviewId, page }) {
   const [review, setReview] = useState({});
   const [areButtonsVisible, setAreButtonsVisible] = useState(false);
   const [openCommentBox, setOpenCommentBox] = useState(false);
+  const params = useParams();
 
   useEffect(() => {
     const fetchReview = async () => {
@@ -43,6 +45,10 @@ function ReviewCard({ reviewId, page }) {
   if (!review.authorUserId) {
     console.log("loading");
     return <>Loading...</>;
+  }
+
+  const navToEditReview = () => {
+    navigate(`/reviews/${params.reviewId}/edit`)
   }
 
   return (
@@ -79,7 +85,7 @@ function ReviewCard({ reviewId, page }) {
       </Card>
       {areButtonsVisible ? (
         <div className="review-buttons">
-          <Button className="me-3" variant="primary">
+          <Button onClick={navToEditReview} className="me-3" variant="primary">
             Edit
           </Button>
 
