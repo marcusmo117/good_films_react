@@ -51,6 +51,19 @@ const apis = {
     );
     return response;
   },
+
+  createReview: async (userReview, token, movieApiId) => {
+    const response = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/api/v1/reviews/${movieApiId}`,
+      userReview,
+      {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: token,
+        },
+      }
+    );
+  },
 };
 
 export default apis;

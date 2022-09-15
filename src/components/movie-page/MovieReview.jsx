@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
-import apis from "../../utils/rating";
+import apis from "../../utils/review";
 import { useParams } from "react-router-dom";
-import styles from "./MovieReview.scss"
+import styles from "./MovieReview.scss";
 
 function MovieRating() {
   const params = useParams();
@@ -30,7 +30,7 @@ function MovieRating() {
     console.log(userReview)
     
     try {
-      apis.rating(userReview, token, movieApiId);
+      apis.createReview(userReview, token, movieApiId);
       return;
     } catch (error) {
       return(error.response.data);
