@@ -1,5 +1,6 @@
-import { Navbar, Nav, NavDropdown, Container, Button, Form, Row, Col } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown, Container, Form, Col } from "react-bootstrap";
 import LogoutComp from "../logout/Logout";
+import SearchMovies from "./SearchMovies";
 
 function Navibar({ tokenState, user, setTokenState }) {
   return (
@@ -15,11 +16,7 @@ function Navibar({ tokenState, user, setTokenState }) {
               Browse
             </Nav.Link>
           </Col>
-          <Col xs={3}>
-            <Form className="d-flex mx-auto">
-              <Form.Control type="search" placeholder="Search" />
-            </Form>
-          </Col>
+          <Col xs={3}>{/* <SearchMovies /> */}</Col>
           <Col className="d-flex justify-content-end align-items-center">
             <NavDropdown
               className="me-4"
@@ -43,11 +40,7 @@ function Navibar({ tokenState, user, setTokenState }) {
               Browse
             </Nav.Link>
           </Col>
-          <Col xs={3}>
-            <Form className="d-flex mx-auto">
-              <Form.Control type="search" placeholder="Search" />
-            </Form>
-          </Col>
+          <Col xs={3}>{/* <SearchMovies /> */}</Col>
           <Col className="d-flex justify-content-end align-items-center">
             <Nav.Link className="d-inline-block me-4" href="/login">
               Login
