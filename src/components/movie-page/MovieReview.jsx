@@ -26,61 +26,67 @@ function MovieRating() {
 
     const movieApiId = params.movieApiId;
 
-    const userReview = {review, rating};
-    console.log(userReview)
-    
+    const userReview = { review, rating };
+    console.log(userReview);
+
     try {
       apis.createReview(userReview, token, movieApiId);
       return;
     } catch (error) {
-      return(error.response.data);
+      return error.response.data;
     }
-  }
+  };
 
-  return(
+  return (
     <div className="review">
       <h3>Rate and review this movie</h3>
 
       <div>
-        {!tokenExists? 
+        {!tokenExists ? (
           "You must be logged in to rate"
-        :
-        <div className="container">
-        <form onSubmit={handleSubmit}>
-          
-        <div className="star-rating">
-          {[...Array(10)].map((star, index) => {
-            index += 1;
-            return (
-              <button
-                type="button"
-                key={index}
-                className={index <= (hover || rating) ? "on" : "off"}
-                onClick={() => setRating(index)}
-                onMouseEnter={() => setHover(index)}
-                onMouseLeave={() => setHover(rating)}
-              >
-                <span className="star"><i class="fa fa-star fa-2x"></i></span>
-              </button>
-        );
-      })}
-    </div>
-        
-          <Form>
-            <Form.Group className="mb-3" controlId="review">
-              <Form.Control as="textarea" rows={3} name="text" placeholder="Leave a review" onChange={handleChange} value={review.text} />
-            </Form.Group>
-          </Form>
-          <button type="submit" className="btn btn-primary">
-            Submit
-          </button>
-        </form>
-      </div>
-        }
-      </div>
-    </div>
-  )
+        ) : (
+          <div className="container">
+            <form onSubmit={handleSubmit}>
+              <div className="star-rating">
+                {[...Array(10)].map((star, index) => {
+                  index += 1;
+                  return (
+                    <button
+                      type="button"
+                      key={index}
+                      className={index <= (hover || rating) ? "on" : "off"}
+                      onClick={() => setRating(index)}
+                      onMouseEnter={() => setHover(index)}
+                      onMouseLeave={() => setHover(rating)}>
+                      <span className="star">
+                        <i class="fa fa-star fa-2x"></i>
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
 
+              <Form>
+                <Form.Group className="mb-3" controlId="review">
+                  <Form.Control
+                    as="textarea"
+                    rows={3}
+                    name="text"
+                    placeholder="Leave a review"
+                    onChange={handleChange}
+                    value={review.text}
+                  />
+                </Form.Group>
+              </Form>
+              <button type="submit" className="btn btn-primary">
+                Submit
+              </button>
+            </form>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
 
 export default MovieRating;
