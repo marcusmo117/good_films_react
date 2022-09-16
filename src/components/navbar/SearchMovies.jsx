@@ -2,7 +2,7 @@ import { useCallback, useState, useRef, useEffect } from "react";
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import apis from "../../utils/movie";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const CACHE = {};
 const PER_PAGE = 20;
@@ -84,6 +84,7 @@ function SearchMovies() {
     <AsyncTypeahead
       id="search-movies"
       isLoading={isLoading}
+      filterBy={() => true}
       labelKey="movieTitle"
       maxResults={PER_PAGE - 1}
       minLength={2}
