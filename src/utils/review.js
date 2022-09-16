@@ -28,7 +28,7 @@ const apis = {
   updateReview: async (userReview, token, reviewId) => {
     const response = await axios.put(
       `${process.env.REACT_APP_BACKEND_URL}/api/v1/reviews/${reviewId}`,
-      { userReview },
+      userReview,
       {
         headers: {
           Authorization: token,

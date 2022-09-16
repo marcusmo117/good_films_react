@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import reviewApis from "../../utils/review";
 import { useParams } from "react-router-dom";
 import styles from "./MovieReview.scss";
+import { toast } from "react-toastify";
+
 
 function EditMovieRating(props) {
   const params = useParams();
@@ -14,6 +16,14 @@ function EditMovieRating(props) {
   const token = "Bearer " + localStorage.getItem("user_token");
   const tokenExists = localStorage.getItem("user_token");
   const reviewId = params.reviewId
+  
+  useEffect(() => {
+    console.log("rating before change: " + props.review.rating)
+    setRating(props.review.rating)
+    setReview({text: props.review.reviewText})
+    console.log("rating: " + props.review.rating)
+  }, [props.review])
+
 
   const handleChange = (e) => {
     setReview({
@@ -31,11 +41,12 @@ function EditMovieRating(props) {
     console.log(userReview)
     
     try {
-        console.log('token: ' + token)
       reviewApis.updateReview(userReview, token, reviewId);
+      toast.success("Update successful!")
       return;
     } catch (error) {
-      return(error.response.data);
+      toast.error(error.response.data)
+      return;
     }
   }
 
@@ -70,7 +81,7 @@ function EditMovieRating(props) {
         
           <Form>
             <Form.Group className="mb-3" controlId="review">
-              <Form.Control as="textarea" rows={3} name="text" placeholder="Leave a review" onChange={handleChange} value={props.review.reviewText} />
+              <Form.Control as="textarea" rows={3} name="text" placeholder="Leave a review" onChange={handleChange} value={review.text} />
             </Form.Group>
           </Form>
           <button type="submit" className="btn btn-primary">
