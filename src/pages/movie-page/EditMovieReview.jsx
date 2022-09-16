@@ -3,6 +3,8 @@ import Form from "react-bootstrap/Form";
 import reviewApis from "../../utils/review";
 import { useParams } from "react-router-dom";
 import styles from "./MovieReview.scss";
+import { toast } from "react-toastify";
+
 
 function EditMovieRating(props) {
   const params = useParams();
@@ -39,11 +41,12 @@ function EditMovieRating(props) {
     console.log(userReview)
     
     try {
-        console.log('token: ' + token)
       reviewApis.updateReview(userReview, token, reviewId);
+      toast.success("Update successful!")
       return;
     } catch (error) {
-      return(error.response.data);
+      toast.error(error.response.data)
+      return;
     }
   }
 
