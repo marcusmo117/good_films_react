@@ -12,8 +12,8 @@ function Index() {
   const [genreList, setGenreList] = useState({});
 
   const fetchMovies = async () => {
-    const popular = await apis.getMovies("popular");
-    const top = await apis.getMovies("top_rated");
+    const popular = await apis.getMovie("popular");
+    const top = await apis.getMovie("top_rated");
     const allGenres = await apis.getListOfGenres();
     setPopularMovies(popular);
     setTopMovies(top);

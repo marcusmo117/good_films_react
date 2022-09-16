@@ -1,6 +1,4 @@
-.movie-section{
+.movie-container{
   display: flex;
-  gap: 2em;
-  flex-flow: row wrap;
-  flex-direction: column;
+  flex-direction: row;
 }

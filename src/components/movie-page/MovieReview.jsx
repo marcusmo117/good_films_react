@@ -3,14 +3,15 @@ import Form from "react-bootstrap/Form";
 import apis from "../../utils/review";
 import { useParams } from "react-router-dom";
 import styles from "./MovieReview.scss";
+import StarRating from "./StarRating";
 
 function MovieRating() {
   const params = useParams();
   const [review, setReview] = useState({
     text: "",
+    rating: "",
   });
-  const [rating, setRating] = useState(0);
-  const [hover, setHover] = useState(0);
+  // const [rating, setRating] = useState(0);
   const token = "Bearer " + localStorage.getItem("user_token");
   const tokenExists = localStorage.getItem("user_token");
 
@@ -26,11 +27,11 @@ function MovieRating() {
 
     const movieApiId = params.movieApiId;
 
-    const userReview = {review, rating};
-    console.log(userReview)
+    // const userReview = {review, rating};
+    console.log(review)
     
     try {
-      apis.createReview(userReview, token, movieApiId);
+      apis.createReview(review, token, movieApiId);
       return;
     } catch (error) {
       return(error.response.data);
@@ -47,25 +48,7 @@ function MovieRating() {
         :
         <div className="container">
         <form onSubmit={handleSubmit}>
-          
-        <div className="star-rating">
-          {[...Array(10)].map((star, index) => {
-            index += 1;
-            return (
-              <button
-                type="button"
-                key={index}
-                className={index <= (hover || rating) ? "on" : "off"}
-                onClick={() => setRating(index)}
-                onMouseEnter={() => setHover(index)}
-                onMouseLeave={() => setHover(rating)}
-              >
-                <span className="star"><i class="fa fa-star fa-2x"></i></span>
-              </button>
-        );
-      })}
-    </div>
-        
+          <StarRating ratingFunction={setReview} rateScore={review} name="rating" value={review.rating} />
           <Form>
             <Form.Group className="mb-3" controlId="review">
               <Form.Control as="textarea" rows={3} name="text" placeholder="Leave a review" onChange={handleChange} value={review.text} />
