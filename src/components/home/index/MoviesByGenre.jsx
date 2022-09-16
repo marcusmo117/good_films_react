@@ -5,7 +5,7 @@ import FilterDropdown from "../filter/FilterDropdown";
 import styles from "./Index.scss";
 import { useParams } from "react-router-dom";
 
-function MoviesByGenre() {
+const MoviesByGenre = () => {{
   const params = useParams();
   const [genre, setGenre] = useState({});
   const [genreList, setGenreList] = useState({});
@@ -21,7 +21,6 @@ function MoviesByGenre() {
     fetchGenre();
   });
 
-  console.log(params.genre);
   return (
     <div className="section">
       <h1>Movies By Genre</h1>
@@ -31,6 +30,7 @@ function MoviesByGenre() {
       <div className="section">{genre.data ? <MovieSection section={genre.data} title={params.genre} /> : "No movies in this genre"}</div>
     </div>
   );
+}
 }
 
 export default MoviesByGenre;
