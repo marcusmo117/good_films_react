@@ -25,7 +25,6 @@ function EditMovieReview() {
 
 
     useEffect(() => {
-        // console.log('review data' + JSON.stringify(review.movieId.movieApiId)) 
         const fetchMovie = async () => {
             const movieResult = await movieApis.getMovie(review.movieId.movieApiId);
             setMovie(movieResult.data);
