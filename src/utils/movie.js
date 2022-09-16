@@ -1,6 +1,12 @@
 import axios from "axios";
 
 const apis = {
+  searchMovies: async (query, page) => {
+    const response = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/v1/movies/search/${query}/${page}`
+    );
+    return response;
+  },
   getMovie: async (movieApiId) => {
     const response = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/api/v1/movies/${movieApiId}`

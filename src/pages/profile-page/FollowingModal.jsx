@@ -26,7 +26,7 @@ function FollowingModal({ followees, profileInViewUsername }) {
           <ul>
             {followees &&
               followees.map((followee) => (
-                <li>
+                <li key={followee}>
                   <Link to={"/profiles/" + followee}>{followee}</Link>
                   {/* <a href={"/profiles/" + followee}>{followee}</a> */}
                 </li>

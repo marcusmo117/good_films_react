@@ -7,16 +7,21 @@ import MovieReview from "./MovieReview";
 
 function MoviePage() {
   const params = useParams();
+  const [movieInViewApiId, setMovieInViewApiId] = useState(params.movieApiId);
   const [movie, setMovie] = useState({});
 
   useEffect(() => {
+    setMovieInViewApiId(params.movieApiId);
+  }, [params.movieApiId]);
+
+  useEffect(() => {
     const fetchMovie = async () => {
-      const movieResult = await apis.getMovie(params.movieApiId);
+      const movieResult = await apis.getMovie(movieInViewApiId);
       setMovie(movieResult.data);
     };
 
     fetchMovie();
-  }, []);
+  }, [movieInViewApiId]);
 
   const {
     id,
@@ -29,7 +34,7 @@ function MoviePage() {
     vote_average,
     vote_count,
   } = movie;
- 
+
   return (
     <div className="movie">
       <Container>
@@ -44,7 +49,9 @@ function MoviePage() {
             <p>Duration: {runtime} mins</p>
             <p>Average Vote Score: {vote_average}</p>
             <p>No. of Votes: {vote_count}</p>
-            <div><MovieReview /></div>
+            <div>
+              <MovieReview />
+            </div>
           </Col>
         </Row>
       </Container>
