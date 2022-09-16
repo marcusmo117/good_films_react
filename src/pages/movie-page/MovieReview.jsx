@@ -7,6 +7,7 @@ import StarRating from "./StarRating";
 
 function MovieRating() {
   const params = useParams();
+  const [rating, setRating] = useState({})
   const [review, setReview] = useState({
     text: "",
     rating: "",
@@ -48,7 +49,7 @@ function MovieRating() {
         :
         <div className="container">
           <form onSubmit={handleSubmit}>
-            <StarRating ratingFunction={setReview} rateScore={review} name="rating" value={review.rating} />
+            <StarRating ratingFunction={setRating} rateScore={rating} />
             <Form>
               <Form.Group className="mb-3" controlId="review">
                 <Form.Control as="textarea" rows={3} name="text" placeholder="Leave a review" onChange={handleChange} value={review.text} />

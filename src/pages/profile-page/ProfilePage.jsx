@@ -4,7 +4,7 @@ import { useParams, Link } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import { toast } from "react-toastify";
 import ReviewCard from "./ReviewCard";
-import ErrorPage from "../error-page/ErrorPage";
+import ErrorPage from "../../components/error-page/ErrorPage";
 import FollowingModal from "./FollowingModal";
 import FollowUnfollowButton from "./FollowUnfollowButton";
 import SearchUsers from "./SearchUsers";
