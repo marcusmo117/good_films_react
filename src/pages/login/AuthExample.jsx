@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import LogoutComp from "../logout/Logout";
+import LogoutComp from "../../components/logout/Logout"
 
 function AuthExample() {
   const [data, setData] = useState({});

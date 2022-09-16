@@ -6,7 +6,6 @@ import apis from "../../../utils/movie";
 function FilterDropdown(props) {
 
   const listOfGenres = props.dropdownGenres.data;
-  console.log("Genres:", listOfGenres)
 
   return (
     <div>

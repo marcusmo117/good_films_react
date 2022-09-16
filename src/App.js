@@ -1,23 +1,27 @@
 import { Routes, Route } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import Index from "./components/home/index/Index";
-import ErrorPage from "./components/error-page/ErrorPage";
-import MoviePage from "./components/movie-page/MoviePage";
-import ProfilePage from "./components/profile-page/ProfilePage";
-import ReviewPage from "./components/review-page/ReviewPage";
-import Register from "./components/register/Register";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Login from "./components/login/Login";
-import AuthExample from "./components/login/AuthExample";
+import jwt_decode from "jwt-decode";
+
+// Pages
+import Index from "./pages/home/index/Index";
+import MoviePage from "./pages/movie-page/MoviePage";
+import ProfilePage from "./pages/profile-page/ProfilePage";
+import ReviewPage from "./pages/review-page/ReviewPage";
+import EditMovieReviewPage from "./pages/movie-page/EditMovieReviewPage";
+import MoviesByGenre from "./pages/home/index/MoviesByGenre";
+import Register from "./pages/register/Register";
+import Login from "./pages/login/Login";
+import AuthExample from "./pages/login/AuthExample";
+
+// Components
+import ErrorPage from "./components/error-page/ErrorPage";
 import Auth from "./components/auth/Auth";
 import Guest from "./components/auth/Guest";
-import MoviesByGenre from "./components/home/index/MoviesByGenre";
 import Navibar from "./components/navbar/Navbar";
-import jwt_decode from "jwt-decode";
-import EditMovieReviewPage from "./components/movie-page/EditMovieReviewPage";
 
 function App() {
   const [tokenState, setTokenState] = useState();

@@ -4,13 +4,15 @@ import styles from "./MovieSection.scss";
 
 function MovieSection(props) {
   const getMovie = props.section;
-
   const listMovies = getMovie.map((movie) => <Card key={movie.id} movieDetails={movie} />);
-
+  //const listMovies = getMovie.slice(0, 8).map((movie) => <Card key={movie.id} movieDetails={movie} />);
+  
   return (
-    <div className={styles["movie-section"]}>
+    <div className="section-container">
       <h3>{props.title}</h3>
-      <div className="d-flex flex-row justify-content-left">{listMovies}</div>
+      <div className="movie-container">
+          {listMovies}
+      </div>
     </div>
   );
 }
