@@ -29,8 +29,7 @@ function MoviePage() {
     vote_average,
     vote_count,
   } = movie;
-  console.log(movie);
-
+ 
   return (
     <div className="movie">
       <Container>

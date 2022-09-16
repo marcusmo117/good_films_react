@@ -10,11 +10,14 @@ function MovieRating() {
   const [rating, setRating] = useState({})
   const [review, setReview] = useState({
     text: "",
-    rating: "",
   });
-  // const [rating, setRating] = useState(0);
   const token = "Bearer " + localStorage.getItem("user_token");
   const tokenExists = localStorage.getItem("user_token");
+
+  const checkReviewExists = async () => {
+
+  }
+
 
   const handleChange = (e) => {
     setReview({
@@ -32,7 +35,7 @@ function MovieRating() {
     console.log(userReview);
 
     try {
-      apis.createReview(review, token, movieApiId);
+      apis.createReview(userReview, token, movieApiId);
       return;
     } catch (error) {
       return error.response.data;
@@ -45,7 +48,7 @@ function MovieRating() {
 
       <div>
         {!tokenExists ? (
-          "You must be logged in to rate")
+          "Sign in to rate")
         :
         <div className="container">
           <form onSubmit={handleSubmit}>

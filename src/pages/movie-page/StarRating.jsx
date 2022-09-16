@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Rating from "react-rating"
 
 const StarRating = (props) => {
   
@@ -16,7 +17,7 @@ const StarRating = (props) => {
             onMouseEnter={() => setHover(index)}
             onMouseLeave={() => setHover(props.rateScore)}
           >
-            <span className="star"><i class="fa fa-star fa-2x"></i></span>
+            <span className="star"><i className="fa fa-star fa-2x"></i></span>
           </button>
         );
       })}
