@@ -32,7 +32,7 @@ function Navibar({ tokenState, user, setTokenState }) {
               </Link>
             </Nav.Link>
           </Col>
-          <Col xs={3}>
+          <Col xs={5}>
             <SearchMovies />
           </Col>
           <Col className="d-flex justify-content-end align-items-center">
