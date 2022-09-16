@@ -27,43 +27,42 @@ function MovieRating() {
 
     const movieApiId = params.movieApiId;
 
-    // const userReview = {review, rating};
-    console.log(review)
-    
+    const userReview = { review, rating };
+    console.log(userReview);
+
     try {
       apis.createReview(review, token, movieApiId);
       return;
     } catch (error) {
-      return(error.response.data);
+      return error.response.data;
     }
-  }
+  };
 
-  return(
+  return (
     <div className="review">
       <h3>Rate and review this movie</h3>
 
       <div>
-        {!tokenExists? 
-          "You must be logged in to rate"
+        {!tokenExists ? (
+          "You must be logged in to rate")
         :
         <div className="container">
-        <form onSubmit={handleSubmit}>
-          <StarRating ratingFunction={setReview} rateScore={review} name="rating" value={review.rating} />
-          <Form>
-            <Form.Group className="mb-3" controlId="review">
-              <Form.Control as="textarea" rows={3} name="text" placeholder="Leave a review" onChange={handleChange} value={review.text} />
-            </Form.Group>
-          </Form>
-          <button type="submit" className="btn btn-primary">
-            Submit
-          </button>
-        </form>
-      </div>
+          <form onSubmit={handleSubmit}>
+            <StarRating ratingFunction={setReview} rateScore={review} name="rating" value={review.rating} />
+            <Form>
+              <Form.Group className="mb-3" controlId="review">
+                <Form.Control as="textarea" rows={3} name="text" placeholder="Leave a review" onChange={handleChange} value={review.text} />
+              </Form.Group>
+            </Form>
+            <button type="submit" className="btn btn-primary">
+              Submit
+            </button>
+          </form>
+        </div>
         }
       </div>
     </div>
-  )
-
+  );
 }
 
 export default MovieRating;

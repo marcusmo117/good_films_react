@@ -17,6 +17,7 @@ import Guest from "./components/auth/Guest";
 import MoviesByGenre from "./components/home/index/MoviesByGenre";
 import Navibar from "./components/navbar/Navbar";
 import jwt_decode from "jwt-decode";
+import EditMovieReviewPage from "./components/movie-page/EditMovieReviewPage";
 
 function App() {
   const [tokenState, setTokenState] = useState();
@@ -37,7 +38,11 @@ function App() {
   return (
     <div className="App">
       {/* lifting state */}
-      <Navibar tokenState={tokenState} user={user} setTokenState={setTokenState} />
+      <Navibar
+        tokenState={tokenState}
+        user={user}
+        setTokenState={setTokenState}
+      />
       <Routes>
         {/* 
         Guest: user logged in, redirect to /
@@ -58,10 +63,26 @@ function App() {
         <Route path="/register" element={<Guest component={Register} />} />
         <Route
           path="/login"
-          element={<Guest component={Login} setTokenState={setTokenState} user={user} />}
+          element={
+            <Guest
+              component={Login}
+              setTokenState={setTokenState}
+              user={user}
+            />
+          }
         />
-        <Route path="/profiles/:username" element={<Auth component={ProfilePage} />} />
-        <Route path="/reviews/:reviewId" element={<Auth component={ReviewPage} />} />
+        <Route
+          path="/profiles/:username"
+          element={<Auth component={ProfilePage} />}
+        />
+        <Route
+          path="/reviews/:reviewId"
+          element={<Auth component={ReviewPage} />}
+        />
+        <Route
+          path="/reviews/:reviewId/edit"
+          element={<Auth component={EditMovieReviewPage} />}
+        />
         <Route path="/auth" element={<Auth component={AuthExample} />} />
         <Route path="*" element={<ErrorPage message="Page not found" />} />
       </Routes>
