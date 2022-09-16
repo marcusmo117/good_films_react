@@ -1,23 +1,22 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Form from "react-bootstrap/Form";
 import apis from "../../utils/review";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+
 import styles from "./MovieReview.scss";
 import StarRating from "./StarRating";
 
-function MovieRating() {
+function MovieReview() {
   const params = useParams();
-  const [rating, setRating] = useState({})
+  const navigate = useNavigate();
+  const [rating, setRating] = useState({});
   const [review, setReview] = useState({
     text: "",
   });
   const token = "Bearer " + localStorage.getItem("user_token");
   const tokenExists = localStorage.getItem("user_token");
 
-  const checkReviewExists = async () => {
-
-  }
-
+  const checkReviewExists = async () => {};
 
   const handleChange = (e) => {
     setReview({
@@ -32,11 +31,11 @@ function MovieRating() {
     const movieApiId = params.movieApiId;
 
     const userReview = { review, rating };
-    console.log(userReview);
 
     try {
-      apis.createReview(userReview, token, movieApiId);
-      return;
+      const response = await apis.createReview(userReview, token, movieApiId);
+      const reviewId = response.data._id;
+      navigate(`/reviews/${reviewId}`);
     } catch (error) {
       return error.response.data;
     }
@@ -48,25 +47,32 @@ function MovieRating() {
 
       <div>
         {!tokenExists ? (
-          "Sign in to rate")
-        :
-        <div className="container">
-          <form onSubmit={handleSubmit}>
-            <StarRating ratingFunction={setRating} rateScore={rating} />
-            <Form>
+          "Sign in to rate"
+        ) : (
+          <div className="container">
+            <Form onSubmit={handleSubmit}>
+              <StarRating ratingFunction={setRating} rateScore={rating} />
+              {/* <Form> */}
               <Form.Group className="mb-3" controlId="review">
-                <Form.Control as="textarea" rows={3} name="text" placeholder="Leave a review" onChange={handleChange} value={review.text} />
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  name="text"
+                  placeholder="Leave a review"
+                  onChange={handleChange}
+                  value={review.text}
+                />
               </Form.Group>
+              {/* </Form> */}
+              <button type="submit" className="btn btn-primary">
+                Submit
+              </button>
             </Form>
-            <button type="submit" className="btn btn-primary">
-              Submit
-            </button>
-          </form>
-        </div>
-        }
+          </div>
+        )}
       </div>
     </div>
   );
 }
 
-export default MovieRating;
+export default MovieReview;

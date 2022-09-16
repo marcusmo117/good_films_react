@@ -15,6 +15,7 @@ function SearchUsers({ followeeOptions, profileInViewUsername }) {
   return (
     <>
       <Typeahead
+        id="Search Users"
         minLength={2}
         placeholder="Find someone new to follow!"
         options={followeeOptions}

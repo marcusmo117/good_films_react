@@ -20,19 +20,20 @@ const makeAndHandleRequest = async (query, page = 1) => {
 };
 
 function SearchMovies() {
-  const params = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const [options, setOptions] = useState([]);
   const [query, setQuery] = useState("");
   const typeaheadElement = useRef();
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   typeaheadElement.current.clear();
-  // }, [params]);
+  const onChange = (values) => {
+    if (values.length) {
+      typeaheadElement.current.clear();
+    }
+  };
 
-  const handleInputChange = (q) => {
-    setQuery(q);
+  const handleInputChange = (queryValue) => {
+    setQuery(queryValue);
   };
 
   const handlePagination = (e, shownResults) => {
@@ -86,6 +87,7 @@ function SearchMovies() {
       labelKey="movieTitle"
       maxResults={PER_PAGE - 1}
       minLength={2}
+      onChange={onChange}
       onInputChange={handleInputChange}
       onPaginate={handlePagination}
       onSearch={handleSearch}
@@ -104,7 +106,7 @@ function SearchMovies() {
             }}
           />
           <span
-            onClick={(e) => {
+            onClick={() => {
               navigate(`/movies/${option.movieApiId}`);
             }}>
             {option.movieTitle}
