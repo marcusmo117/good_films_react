@@ -96,7 +96,11 @@ function SearchMovies() {
       placeholder="Search for a movie..."
       ref={typeaheadElement}
       renderMenuItemChildren={(option) => (
-        <div key={option.movieApiId}>
+        <div
+          key={option.movieApiId}
+          onClick={() => {
+            navigate(`/movies/${option.movieApiId}`);
+          }}>
           <img
             alt={option.movieTitle}
             src={"https://www.themoviedb.org/t/p/w94_and_h141_bestv2" + option.movieImage}
@@ -105,12 +109,7 @@ function SearchMovies() {
               marginRight: "10px",
             }}
           />
-          <span
-            onClick={() => {
-              navigate(`/movies/${option.movieApiId}`);
-            }}>
-            {option.movieTitle}
-          </span>
+          <span>{option.movieTitle}</span>
         </div>
       )}
       useCache={false}
