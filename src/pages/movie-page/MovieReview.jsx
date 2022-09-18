@@ -9,7 +9,7 @@ function MovieReview(props) {
   const params = useParams();
   const movieApiId = params.movieApiId;
   const navigate = useNavigate();
-  const [newRating, setNewRating] = useState({});
+  const [newRating, setNewRating] = useState(0);
   const [newReview, setNewReview] = useState({
     text: "",
   });
@@ -68,7 +68,7 @@ function MovieReview(props) {
               <button type="submit" className="btn btn-primary">
                 Submit
               </button>
-            </Form> 
+            </Form>
           </div>
         )}
       </div>
