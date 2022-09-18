@@ -3,7 +3,8 @@ import { Card } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { useNavigate } from "react-router-dom";
 import LikeButton from "./LikeButton";
-import CommentThread from "./CommentThread";
+import LikesAndCommentsCounter from "./LikesAndCommentsCounter";
+// import CommentThread from "./CommentThread";
 import CommentBox from "./CommentBox";
 import apis from "../../utils/review";
 import jwt_decode from "jwt-decode";
@@ -48,8 +49,8 @@ function ReviewCard({ reviewId, page }) {
   }
 
   const navToEditReview = () => {
-    navigate(`/reviews/${params.reviewId}/edit`)
-  }
+    navigate(`/reviews/${params.reviewId}/edit`);
+  };
 
   return (
     <div className="review-card">
@@ -61,7 +62,7 @@ function ReviewCard({ reviewId, page }) {
           </LinkContainer>
           {review.reviewText ? <Card.Text>Review: {review.reviewText}</Card.Text> : <></>}
           {review.rating ? <Card.Text>Rating: {review.rating}</Card.Text> : <></>}
-
+          <LikesAndCommentsCounter review={review} />
           <LikeButton
             review={review}
             setReview={setReview}
@@ -80,7 +81,7 @@ function ReviewCard({ reviewId, page }) {
               <CommentBox review={review} setReview={setReview} />
             </div>
           </Collapse>
-          <CommentThread review={review} />
+          {/* <CommentThread review={review} /> */}
         </Card.Body>
       </Card>
       {areButtonsVisible ? (
