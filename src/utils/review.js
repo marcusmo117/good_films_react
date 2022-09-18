@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apis = {
+const reviewApis = {
   getReview: async (reviewId, token) => {
     const response = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/api/v1/reviews/${reviewId}`,
@@ -81,6 +81,18 @@ const apis = {
     );
     return response;
   },
+
+  getReviewFromMovieAndUser: async (movieApiId, token) => {
+    const response = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/v1/reviews/from-movie-and-user/${movieApiId}`,
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return response;
+  },
 };
 
-export default apis;
+export default reviewApis;

@@ -4,9 +4,9 @@ import { Container, Row, Col } from "react-bootstrap";
 import styles from "./MoviePage.scss";
 import movieApis from "../../utils/movie";
 import reviewApis from "../../utils/review";
-import EditMovieRating from "./EditMovieReview";
+import EditMovieReview from "./EditMovieReview";
 
-function EditMovieReview() {
+function EditMovieReviewPage() {
     const token = "Bearer " + localStorage.getItem("user_token")
     const params = useParams();
     const [movie, setMovie] = useState({});
@@ -32,6 +32,8 @@ function EditMovieReview() {
 
         fetchMovie();
     }, [review])
+
+    console.log("Review:", review)
   
     const {
       id,
@@ -60,7 +62,7 @@ function EditMovieReview() {
               <p>Duration: {runtime} mins</p>
               <p>Average Vote Score: {vote_average}</p>
               <p>No. of Votes: {vote_count}</p>
-              <div><EditMovieRating review = {review} /></div>
+              <div><EditMovieReview review = {review} /></div>
             </Col>
           </Row>
         </Container>
@@ -68,4 +70,4 @@ function EditMovieReview() {
     );
 }
   
-export default EditMovieReview;
+export default EditMovieReviewPage;

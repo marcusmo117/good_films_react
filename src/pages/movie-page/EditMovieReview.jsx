@@ -6,7 +6,7 @@ import styles from "./MovieReview.scss";
 import { toast } from "react-toastify";
 
 
-function EditMovieRating(props) {
+function EditMovieReview(props) {
   const params = useParams();
   const [review, setReview] = useState({
     text: "",
@@ -34,8 +34,6 @@ function EditMovieRating(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // const movieApiId = props.review.movieId.movieApiId;
 
     const userReview = {review, rating};
     console.log(userReview)
@@ -96,4 +94,4 @@ function EditMovieRating(props) {
 
 }
 
-export default EditMovieRating;
+export default EditMovieReview;
