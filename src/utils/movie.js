@@ -14,6 +14,12 @@ const movieApis = {
     return response;
   },
 
+  getOurMovie: async (movieApiId) => {
+    const response = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/v1/movies/our-movies/${movieApiId}`
+    );
+    return response;
+  },
   getListOfGenres: async () => {
     const response = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/api/v1/movies/listofgenres`
