@@ -4,12 +4,13 @@ import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Comment from "./Comment";
 import Collapse from "react-bootstrap/Collapse";
+import styles from "./LikesAndCommentsCounter.scss";
 
 const LikesAndCommentsCounter = ({ review }) => {
   const [comments, setComments] = useState([]);
   const [likers, setLikers] = useState([]);
   const [showLikes, setShowLikes] = useState(false);
-  const [openCommentThread, setOpenCommentThread] = useState(false);
+  const [openCommentThread, setOpenCommentThread] = useState(true);
 
   const handleCloseLikes = () => setShowLikes(false);
   const handleShowLikes = () => setShowLikes(true);
@@ -28,8 +29,10 @@ const LikesAndCommentsCounter = ({ review }) => {
   return (
     <>
       <div>
-        <span onClick={handleShowLikes}>{likers.length} like(s),</span>{" "}
-        <span onClick={() => setOpenCommentThread(!openCommentThread)}>
+        <span className="counter" onClick={handleShowLikes}>
+          {likers.length} like(s),
+        </span>{" "}
+        <span className="counter" onClick={() => setOpenCommentThread(!openCommentThread)}>
           {comments.length} comment(s)
         </span>
       </div>
