@@ -11,16 +11,16 @@ function Index() {
   const [topMovies, setTopMovies] = useState({});
   const [genreList, setGenreList] = useState({});
 
-  const fetchMovies = async () => {
-    const popular = await apis.getMovie("popular");
-    const top = await apis.getMovie("top_rated");
-    const allGenres = await apis.getListOfGenres();
-    setPopularMovies(popular);
-    setTopMovies(top);
-    setGenreList(allGenres);
-  };
-
   useEffect(() => {
+    const fetchMovies = async () => {
+      const popular = await apis.getMovie("popular");
+      const top = await apis.getMovie("top_rated");
+      const allGenres = await apis.getListOfGenres();
+      setPopularMovies(popular);
+      setTopMovies(top);
+      setGenreList(allGenres);
+    };
+    
     fetchMovies();
   }, []);
 

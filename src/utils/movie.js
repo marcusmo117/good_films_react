@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apis = {
+const movieApis = {
   searchMovies: async (query, page) => {
     const response = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/api/v1/movies/search/${query}/${page}`
@@ -29,4 +29,4 @@ const apis = {
   },
 };
 
-export default apis;
+export default movieApis;
