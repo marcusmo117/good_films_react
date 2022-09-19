@@ -5,6 +5,7 @@ import styles from "./MoviePage.scss";
 import movieApis from "../../utils/movie";
 import reviewApis from "../../utils/review";
 import MovieReview from "./MovieReview";
+import ReviewCard from "../profile-page/ReviewCard";
 
 function MoviePage() {
   const params = useParams();
@@ -14,6 +15,7 @@ function MoviePage() {
   const [movie, setMovie] = useState({});
   const [existingReview, setExistingReview] = useState({});
   const [reviewDate, setReviewDate] = useState([]);
+  const [userReviews, setUserReviews] = useState([]);
 
   useEffect(() => {
     setMovieInViewApiId(params.movieApiId);
@@ -40,7 +42,14 @@ function MoviePage() {
         averageRatingGF: averageRating,
         numRatings: reviewIdsWithRating.length,
       });
+
     };
+
+    const fetchUserReviews = async() => {
+      const ourMovieResult = await movieApis.getOurMovie(movieInViewApiId);
+      setUserReviews(
+        ourMovieResult.data.reviewIds);
+    }
 
     const fetchExistingReview = async () => {
       const reviewResults = await reviewApis.getReviewFromMovieAndUser(params.movieApiId, token);
@@ -48,28 +57,31 @@ function MoviePage() {
       setReviewDate([reviewResults.data.updatedAt.slice(0, 10)]);
     };
 
-    fetchMovie();
-    fetchExistingReview();
-  }, [movieInViewApiId]);
+      fetchMovie();
+      fetchExistingReview();
+      fetchUserReviews();
+    }, [movieInViewApiId]);
 
-  const {
-    id,
-    name,
-    title,
-    poster_path,
-    popularity,
-    release_date,
-    runtime,
-    overview,
-    vote_average,
-    vote_count,
-    averageRatingGF,
-    numRatings,
-  } = movie;
 
-  console.log("Movie:", movie);
-  console.log("Review:", existingReview);
-  console.log("Date:", reviewDate);
+    const {
+      id,
+      name,
+      title,
+      poster_path,
+      popularity,
+      release_date,
+      runtime,
+      overview,
+      vote_average,
+      vote_count,
+      averageRatingGF,
+      numRatings,
+    } = movie;
+
+    console.log("Movie:", movie);
+    console.log("Review:", existingReview);
+    console.log("Date:", reviewDate);
+    console.log("MovieReviews:", userReviews)
 
   return (
     <div className="movie">
@@ -98,6 +110,17 @@ function MoviePage() {
                 </p>
               )}
             </div>
+
+            <div className="reviews">
+              { userReviews === undefined ? (
+                "There are no user reviews available for this movie."
+              ) : (
+                userReviews.map((review) => (
+                <ReviewCard key={review._id} reviewId={review._id} page={"movie-page"} />
+                 ))
+              )
+              }
+            </div>
           </Col>
         </Row>
       </Container>
@@ -106,3 +129,4 @@ function MoviePage() {
 }
 
 export default MoviePage;
+

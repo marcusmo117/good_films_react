@@ -56,7 +56,7 @@ function ReviewCard({ reviewId, page }) {
     <div className="review-card">
       <Card>
         <Card.Body>
-          <Card.Title>{review.movieTitle}</Card.Title>
+          <Card.Title>{ page === "movie-page" ? "" : review.movieTitle}</Card.Title>
           <LinkContainer to={`/profiles/${review.authorUserId && review.authorUserId.username}`}>
             <Card.Link>{review.authorUserId && review.authorUserId.username}</Card.Link>
           </LinkContainer>
