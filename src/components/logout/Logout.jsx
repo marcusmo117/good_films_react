@@ -21,4 +21,4 @@ function LogoutComp(props) {
     )
 }
 
-export default LogoutComp;
+export default LogoutComp; 
