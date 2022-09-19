@@ -21,15 +21,6 @@ function MovieReview(props) {
     });
   };
 
-  // useEffect(() => {
-  //   const fetchReview = async () => {
-  //     const reviewResult = await apis.getReviewFromMovieAndUser(movieApiId, token)
-  //     setExistingReview(reviewResult);
-  //   };
-  //   fetchReview();
-  // }, [])
-  // console.log("Review results:", existingReview)
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
