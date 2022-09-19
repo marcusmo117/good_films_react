@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/good_films_react/static/css/main.05d26075.css",
-    "main.js": "/good_films_react/static/js/main.4a6bac7d.js",
+    "main.js": "/good_films_react/static/js/main.f7e587b2.js",
     "index.html": "/good_films_react/index.html",
     "main.05d26075.css.map": "/good_films_react/static/css/main.05d26075.css.map",
-    "main.4a6bac7d.js.map": "/good_films_react/static/js/main.4a6bac7d.js.map"
+    "main.f7e587b2.js.map": "/good_films_react/static/js/main.f7e587b2.js.map"
   },
   "entrypoints": [
     "static/css/main.05d26075.css",
-    "static/js/main.4a6bac7d.js"
+    "static/js/main.f7e587b2.js"
   ]
 }
