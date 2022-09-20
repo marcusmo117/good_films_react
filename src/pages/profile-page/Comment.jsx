@@ -1,16 +1,19 @@
 import { Row, Col } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
+import datetimeToRelativeTime from "../../utils/datetime/relativeCalendar";
+import { LinkContainer } from "react-router-bootstrap";
 
 function Comment({ comment }) {
-  const date = new Date(comment.createdAt).toLocaleString("en-UK").substring(0, 17);
   return (
     <>
       <Row className="d-flex justify-content-center">
         <Col md={12} lg={10} xl={8}>
           <Card>
             <Card.Footer className="py-3 border-0" style={{ backgroundColor: "#f8f9fa" }}>
-              <Card.Text>{date}</Card.Text>
-              <Card.Text>{comment.authorUserId.username}</Card.Text>
+              <Card.Text>{datetimeToRelativeTime(comment.createdAt)}</Card.Text>
+              <LinkContainer to={`/profiles/${comment.authorUserId.username}`}>
+                <Card.Link>{comment.authorUserId.username}</Card.Link>
+              </LinkContainer>
               <Card.Text>{comment.commentText}</Card.Text>
             </Card.Footer>
           </Card>
