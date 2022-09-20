@@ -16,6 +16,8 @@ import Button from "react-bootstrap/Button";
 import { useParams } from "react-router-dom";
 import datetimeToRelativeTime from "../../utils/datetime/relativeCalendar";
 import styles from "./ReviewCard.scss";
+import { CardHeader } from "@mui/material";
+import Image from "react-bootstrap/Image";
 
 function ReviewCard({ reviewId, page }) {
   const token = "Bearer " + localStorage.getItem("user_token");
@@ -66,8 +68,22 @@ function ReviewCard({ reviewId, page }) {
   };
 
   return (
-    <div className="review-card">
-      <Card>
+    <div className="review-card align-items-center">
+      <Card className="my-5">
+        <Card.Header>
+          <h3>
+            <LinkContainer
+              to={`/profiles/${review.authorUserId && review.authorUserId.username}`}>
+              <Card.Link>{review.authorUserId && review.authorUserId.username}</Card.Link>
+            </LinkContainer>
+            {" rated "} 
+          </h3>
+          {review.rating ? (
+              <StarRating rateScore={review.rating} component="review-card"></StarRating>
+            ) : (
+              <></>
+          )}
+        </Card.Header>
         <Card.Body>
           <Row>
             {page === "movie-page" ? (
@@ -75,8 +91,8 @@ function ReviewCard({ reviewId, page }) {
             ) : (
               <Col md={3}>
                 <div class="movie">
-                  <img
-                    src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`}></img>
+                  <Image className="img-thumbnail" width="250"
+                    src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`}></Image>
                 </div>
               </Col>
             )}
@@ -86,7 +102,9 @@ function ReviewCard({ reviewId, page }) {
                 {page === "movie-page" ? (
                   <></>
                 ) : (
-                  <Card.Title className="movie-title">{review.movieTitle}</Card.Title>
+                  <h1>
+                    <Card.Title className="movie-title">{review.movieTitle}</Card.Title>
+                  </h1>
                 )}
               </LinkContainer>
 
@@ -96,16 +114,9 @@ function ReviewCard({ reviewId, page }) {
                 <></>
               )}
 
-              <LinkContainer
-                to={`/profiles/${review.authorUserId && review.authorUserId.username}`}>
-                <Card.Link>{review.authorUserId && review.authorUserId.username}</Card.Link>
-              </LinkContainer>
+              
               {review.reviewText ? <Card.Text>Review: {review.reviewText}</Card.Text> : <></>}
-              {review.rating ? (
-                <StarRating rateScore={review.rating} component="review-card"></StarRating>
-              ) : (
-                <></>
-              )}
+              
 
               <LikesAndCommentsCounter review={review} />
               <LikeButton
