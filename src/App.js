@@ -5,6 +5,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import jwt_decode from "jwt-decode";
+import apis from "./utils/profile";
+import { toast } from "react-toastify";
 
 // Pages
 import Index from "./pages/home/index/Index";
@@ -27,23 +29,46 @@ import Navibar from "./components/navbar/Navbar";
 function App() {
   const [tokenState, setTokenState] = useState();
   const [user, setUser] = useState();
+  const [profile, setProfile] = useState({});
+  const token = localStorage.getItem("user_token");
+  const tokenToSend = "Bearer " + token;
 
   const getToken = async () => {
-    const token = await localStorage.getItem("user_token");
     setTokenState(token);
     if (tokenState) {
       setUser(jwt_decode(tokenState).data.username);
     }
   };
 
+  const getFollowers = async () => {
+    try {
+      const profileResult = await apis.getProfile(user, tokenToSend);
+      setProfile(profileResult.data);
+    } catch (err) {
+      console.log("error in profile");
+      toast.error(err.response.data.error);
+    }
+  };
+
   useEffect(() => {
     getToken();
+    console.log("getToken running");
   }, [tokenState]);
+
+  useEffect(() => {
+    getFollowers();
+    console.log("user when user changed: " + user);
+  }, [user]);
 
   return (
     <div className="App">
       {/* lifting state */}
-      <Navibar tokenState={tokenState} user={user} setTokenState={setTokenState} />
+      <Navibar
+        tokenState={tokenState}
+        user={user}
+        setTokenState={setTokenState}
+        followees={profile.followees}
+      />
       <Routes>
         {/* 
         Guest: user logged in, redirect to /
@@ -65,11 +90,26 @@ function App() {
         <Route path="/register" element={<Guest component={Register} />} />
         <Route
           path="/login"
-          element={<Guest component={Login} setTokenState={setTokenState} user={user} />}
+          element={
+            <Guest
+              component={Login}
+              setTokenState={setTokenState}
+              user={user}
+            />
+          }
         />
-        <Route path="/profiles/:username" element={<Auth component={ProfilePage} />} />
-        <Route path="/reviews/:reviewId" element={<Auth component={ReviewPage} />} />
-        <Route path="/reviews/:reviewId/edit" element={<Auth component={EditMovieReviewPage} />} />
+        <Route
+          path="/profiles/:username"
+          element={<Auth component={ProfilePage} />}
+        />
+        <Route
+          path="/reviews/:reviewId"
+          element={<Auth component={ReviewPage} />}
+        />
+        <Route
+          path="/reviews/:reviewId/edit"
+          element={<Auth component={EditMovieReviewPage} />}
+        />
         {/* <Route path="/auth" element={<Auth component={AuthExample} />} /> */}
         <Route path="*" element={<ErrorPage message="Page not found" />} />
       </Routes>
