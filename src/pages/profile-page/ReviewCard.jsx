@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
-import { Card } from "react-bootstrap";
+import { Row, Col, Card } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { useNavigate } from "react-router-dom";
 import LikeButton from "./LikeButton";
 import LikesAndCommentsCounter from "./LikesAndCommentsCounter";
+import movieApis from "../../utils/movie";
+import StarRating from "../movie-page/StarRating";
+
 // import CommentThread from "./CommentThread";
 import CommentBox from "./CommentBox";
 import apis from "../../utils/review";
@@ -19,6 +22,7 @@ function ReviewCard({ reviewId, page }) {
   const navigate = useNavigate();
   const currentUserUsername = jwt_decode(token).data.username;
   const [review, setReview] = useState({});
+  const [movie, setMovie] = useState({});
   const [areButtonsVisible, setAreButtonsVisible] = useState(false);
   const [openCommentBox, setOpenCommentBox] = useState(false);
   const params = useParams();
@@ -33,11 +37,18 @@ function ReviewCard({ reviewId, page }) {
   }, []);
 
   useEffect(() => {
+    const fetchMovie = async () => {
+      try {
+        const movieResult = await movieApis.getMovie(review.movieId.movieApiId);
+        setMovie(movieResult.data);
+      } catch (err) {}
+    };
     if (review.authorUserId && page === "review-page") {
       if (review.authorUserId.username === currentUserUsername) {
         setAreButtonsVisible(true);
       }
     }
+    fetchMovie();
   }, [review]);
 
   const deleteReviewBackend = async () => {
@@ -58,46 +69,70 @@ function ReviewCard({ reviewId, page }) {
     <div className="review-card">
       <Card>
         <Card.Body>
-          <LinkContainer to={`/movies/${review.movieId && review.movieId.movieApiId}`}>
-            <Card.Title className="movie-title">
-              {page === "movie-page" ? "" : review.movieTitle}
-            </Card.Title>
-          </LinkContainer>
-          {/* <Card.Text>
-            {new Date(review.createdAt).toLocaleString("en-UK").substring(0, 17)}
-          </Card.Text> */}
+          <Row>
+            {page === "movie-page" ? (
+              <></>
+            ) : (
+              <Col md={3}>
+                <div class="movie">
+                  <img
+                    src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`}></img>
+                </div>
+              </Col>
+            )}
 
-          {review.createdAt ? (
-            <Card.Text>{datetimeToRelativeTime(review.createdAt)}</Card.Text>
-          ) : (
-            <></>
-          )}
+            <Col>
+              <LinkContainer to={`/movies/${review.movieId && review.movieId.movieApiId}`}>
+                {page === "movie-page" ? (
+                  <></>
+                ) : (
+                  <Card.Title className="movie-title">{review.movieTitle}</Card.Title>
+                )}
+              </LinkContainer>
 
-          <LinkContainer to={`/profiles/${review.authorUserId && review.authorUserId.username}`}>
-            <Card.Link>{review.authorUserId && review.authorUserId.username}</Card.Link>
-          </LinkContainer>
-          {review.reviewText ? <Card.Text>Review: {review.reviewText}</Card.Text> : <></>}
-          {review.rating ? <Card.Text>Rating: {review.rating}</Card.Text> : <></>}
+              {review.createdAt ? (
+                <Card.Text>{datetimeToRelativeTime(review.createdAt)}</Card.Text>
+              ) : (
+                <></>
+              )}
 
-          <LikesAndCommentsCounter review={review} />
-          <LikeButton
-            review={review}
-            setReview={setReview}
-            currentUserUsername={currentUserUsername}
-          />
-          <Card.Link
-            style={{ cursor: "pointer" }}
-            onClick={() => setOpenCommentBox(!openCommentBox)}>
-            Comment
-          </Card.Link>
-          <LinkContainer to={"/reviews/" + review._id}>
-            <Card.Link>See review</Card.Link>
-          </LinkContainer>
-          <Collapse in={openCommentBox}>
-            <div>
-              <CommentBox review={review} setReview={setReview} />
-            </div>
-          </Collapse>
+              <LinkContainer
+                to={`/profiles/${review.authorUserId && review.authorUserId.username}`}>
+                <Card.Link>{review.authorUserId && review.authorUserId.username}</Card.Link>
+              </LinkContainer>
+              {review.reviewText ? <Card.Text>Review: {review.reviewText}</Card.Text> : <></>}
+              {review.rating ? (
+                <StarRating rateScore={review.rating} component="review-card"></StarRating>
+              ) : (
+                <></>
+              )}
+
+              <LikesAndCommentsCounter review={review} />
+              <LikeButton
+                review={review}
+                setReview={setReview}
+                currentUserUsername={currentUserUsername}
+              />
+              <Card.Link
+                style={{ cursor: "pointer" }}
+                onClick={() => setOpenCommentBox(!openCommentBox)}>
+                Comment
+              </Card.Link>
+              {page === "review-page" ? (
+                <></>
+              ) : (
+                <LinkContainer to={"/reviews/" + review._id}>
+                  <Card.Link>See review</Card.Link>
+                </LinkContainer>
+              )}
+
+              <Collapse in={openCommentBox}>
+                <div>
+                  <CommentBox review={review} setReview={setReview} />
+                </div>
+              </Collapse>
+            </Col>
+          </Row>
         </Card.Body>
       </Card>
       {areButtonsVisible ? (

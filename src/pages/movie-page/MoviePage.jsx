@@ -6,6 +6,7 @@ import movieApis from "../../utils/movie";
 import reviewApis from "../../utils/review";
 import MovieReview from "./MovieReview";
 import ReviewCard from "../profile-page/ReviewCard";
+import ErrorPage from "../../components/error-page/ErrorPage";
 
 function MoviePage() {
   const params = useParams();
@@ -16,6 +17,7 @@ function MoviePage() {
   const [existingReview, setExistingReview] = useState({});
   const [reviewDate, setReviewDate] = useState([]);
   const [userReviews, setUserReviews] = useState([]);
+  const [errorMsg, setErrorMsg] = useState(null);
 
   // useEffect(() => {
   //   setMovieInViewApiId(params.movieApiId);
@@ -23,25 +25,29 @@ function MoviePage() {
 
   useEffect(() => {
     const fetchMovie = async () => {
-      const movieResult = await movieApis.getMovie(params.movieApiId);
-      const ourMovieResult = await movieApis.getOurMovie(params.movieApiId);
-      console.log("our movie result", ourMovieResult);
-      let averageRating = "No votes yet!";
-      let reviewIdsWithRating = [];
+      try {
+        const movieResult = await movieApis.getMovie(params.movieApiId);
+        const ourMovieResult = await movieApis.getOurMovie(params.movieApiId);
+        console.log("our movie result", ourMovieResult);
+        let averageRating = "No votes yet!";
+        let reviewIdsWithRating = [];
 
-      if (Object.keys(ourMovieResult.data).length) {
-        averageRating = ourMovieResult.data.averageRating;
-        if (averageRating === 0) {
-          averageRating = "No votes yet!";
+        if (Object.keys(ourMovieResult.data).length) {
+          averageRating = ourMovieResult.data.averageRating;
+          if (averageRating === 0) {
+            averageRating = "No votes yet!";
+          }
+          reviewIdsWithRating = ourMovieResult.data.reviewIds.filter((review) => review.rating);
         }
-        reviewIdsWithRating = ourMovieResult.data.reviewIds.filter((review) => review.rating);
-      }
 
-      setMovie({
-        ...movieResult.data,
-        averageRatingGF: averageRating,
-        numRatings: reviewIdsWithRating.length,
-      });
+        setMovie({
+          ...movieResult.data,
+          averageRatingGF: averageRating,
+          numRatings: reviewIdsWithRating.length,
+        });
+      } catch (err) {
+        setErrorMsg(err.response.data.error);
+      }
     };
 
     const fetchUserReviews = async () => {
@@ -79,7 +85,9 @@ function MoviePage() {
   console.log("Review:", existingReview);
   console.log("Date:", reviewDate);
   console.log("MovieReviews:", userReviews);
-
+  if (errorMsg) {
+    return <ErrorPage message={errorMsg} />;
+  }
   return (
     <div className="movie">
       <Container>
