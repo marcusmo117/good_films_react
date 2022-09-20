@@ -12,7 +12,7 @@ import jwt_decode from "jwt-decode";
 
 function ProfilePage() {
   const params = useParams();
-  const [profileInViewUsername, setProfileInViewUsername] = useState(params.username);
+  // const [profileInViewUsername, setProfileInViewUsername] = useState(params.username);
   const [profile, setProfile] = useState({});
   const [currentUserProfile, setCurrentUserProfile] = useState({});
   const [followeeOptions, setFolloweeOptions] = useState([]);
@@ -21,9 +21,9 @@ function ProfilePage() {
   const token = "Bearer " + localStorage.getItem("user_token");
   const currentUserUsername = jwt_decode(token).data.username;
 
-  useEffect(() => {
-    setProfileInViewUsername(params.username);
-  }, [params.username]);
+  // useEffect(() => {
+  //   setProfileInViewUsername(params.username);
+  // }, [params.username]);
 
   useEffect(() => {
     const fetchProfile = async (type, username) => {
@@ -47,10 +47,10 @@ function ProfilePage() {
       }
     };
     // setIsFollowing(false);
-    fetchProfile("profileInView", profileInViewUsername);
+    fetchProfile("profileInView", params.username);
     fetchProfile("currentUser", currentUserUsername);
     fetchAllUsers();
-  }, [profileInViewUsername]);
+  }, [params.username]);
 
   if (errorMsg) {
     return <ErrorPage message={errorMsg} />;
@@ -64,7 +64,7 @@ function ProfilePage() {
           <Col xs={3}>
             <SearchUsers
               followeeOptions={followeeOptions}
-              profileInViewUsername={profileInViewUsername}
+              profileInViewUsername={params.username}
             />
           </Col>
         </Row>
@@ -73,15 +73,12 @@ function ProfilePage() {
           <h2>{profile.username}</h2>
           {!profile.isCurrentUser && (
             <FollowUnfollowButton
-              profileInViewUsername={profileInViewUsername}
+              profileInViewUsername={params.username}
               currentUserProfile={currentUserProfile}
               setCurrentUserProfile={setCurrentUserProfile}
             />
           )}
-          <FollowingModal
-            followees={profile.followees}
-            profileInViewUsername={profileInViewUsername}
-          />
+          <FollowingModal followees={profile.followees} profileInViewUsername={params.username} />
           <h5>Watched {profile.reviews && profile.reviews.length} film(s)</h5>
         </div>
         <div className="reviews">
