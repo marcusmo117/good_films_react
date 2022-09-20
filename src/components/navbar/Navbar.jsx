@@ -25,11 +25,11 @@ function Navibar({ tokenState, user, setTokenState }) {
         <Container fluid>
           <Col className="d-flex justify-content-start align-items-center">
             <Navbar.Brand className="me-4">Good Films</Navbar.Brand>
-            <LinkContainer to={"/"} style={{ color: "inherit", textDecoration: "inherit" }}>
+            <LinkContainer to={"/home"} style={{ color: "inherit", textDecoration: "inherit" }}>
               <Nav.Link className="d-inline-block me-4">Home</Nav.Link>
             </LinkContainer>
 
-            <LinkContainer to={"/"} style={{ color: "inherit", textDecoration: "inherit" }}>
+            <LinkContainer to={"/movies"} style={{ color: "inherit", textDecoration: "inherit" }}>
               <Nav.Link className="d-inline-block me-4">Browse </Nav.Link>
             </LinkContainer>
           </Col>

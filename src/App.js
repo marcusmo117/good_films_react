@@ -15,12 +15,13 @@ import EditMovieReviewPage from "./pages/movie-page/EditMovieReviewPage";
 import MoviesByGenre from "./pages/home/index/MoviesByGenre";
 import Register from "./pages/register/Register";
 import Login from "./pages/login/Login";
-import AuthExample from "./pages/login/AuthExample";
+import UserFeedPage from "./pages/user-feed-page/UserFeedPage";
 
 // Components
 import ErrorPage from "./components/error-page/ErrorPage";
 import Auth from "./components/auth/Auth";
 import Guest from "./components/auth/Guest";
+import Landing from "./components/auth/Landing";
 import Navibar from "./components/navbar/Navbar";
 
 function App() {
@@ -42,11 +43,7 @@ function App() {
   return (
     <div className="App">
       {/* lifting state */}
-      <Navibar
-        tokenState={tokenState}
-        user={user}
-        setTokenState={setTokenState}
-      />
+      <Navibar tokenState={tokenState} user={user} setTokenState={setTokenState} />
       <Routes>
         {/* 
         Guest: user logged in, redirect to /
@@ -60,34 +57,20 @@ function App() {
         {/* TODO:
         Landing: user logged in, redirect to /userfeed
                  user logged out, redirect to /movies */}
-        <Route path="/" element={<Index />} />
+        <Route path="/" element={<Landing />} />
+        <Route path="/home" element={<UserFeedPage />} />
         <Route path="/movies" element={<Index />} />
         <Route path="/movies/:movieApiId" element={<MoviePage />} />
         <Route path="/movies/:genre/:genreId" element={<MoviesByGenre />} />
         <Route path="/register" element={<Guest component={Register} />} />
         <Route
           path="/login"
-          element={
-            <Guest
-              component={Login}
-              setTokenState={setTokenState}
-              user={user}
-            />
-          }
+          element={<Guest component={Login} setTokenState={setTokenState} user={user} />}
         />
-        <Route
-          path="/profiles/:username"
-          element={<Auth component={ProfilePage} />}
-        />
-        <Route
-          path="/reviews/:reviewId"
-          element={<Auth component={ReviewPage} />}
-        />
-        <Route
-          path="/reviews/:reviewId/edit"
-          element={<Auth component={EditMovieReviewPage} />}
-        />
-        <Route path="/auth" element={<Auth component={AuthExample} />} />
+        <Route path="/profiles/:username" element={<Auth component={ProfilePage} />} />
+        <Route path="/reviews/:reviewId" element={<Auth component={ReviewPage} />} />
+        <Route path="/reviews/:reviewId/edit" element={<Auth component={EditMovieReviewPage} />} />
+        {/* <Route path="/auth" element={<Auth component={AuthExample} />} /> */}
         <Route path="*" element={<ErrorPage message="Page not found" />} />
       </Routes>
       <ToastContainer />

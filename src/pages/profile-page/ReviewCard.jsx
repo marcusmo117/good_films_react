@@ -11,6 +11,8 @@ import jwt_decode from "jwt-decode";
 import Collapse from "react-bootstrap/Collapse";
 import Button from "react-bootstrap/Button";
 import { useParams } from "react-router-dom";
+import datetimeToRelativeTime from "../../utils/datetime/relativeCalendar";
+import styles from "./ReviewCard.scss";
 
 function ReviewCard({ reviewId, page }) {
   const token = "Bearer " + localStorage.getItem("user_token");
@@ -43,10 +45,10 @@ function ReviewCard({ reviewId, page }) {
     navigate(`/profiles/${currentUserUsername}`);
   };
 
-  if (!review.authorUserId) {
-    console.log("loading");
-    return <>Loading...</>;
-  }
+  // if (!review.authorUserId) {
+  //   console.log("loading");
+  //   return <>Loading...</>;
+  // }
 
   const navToEditReview = () => {
     navigate(`/reviews/${params.reviewId}/edit`);
@@ -57,13 +59,26 @@ function ReviewCard({ reviewId, page }) {
       <Card>
         <Card.Body>
           <LinkContainer to={`/movies/${review.movieId && review.movieId.movieApiId}`}>
-            <Card.Title>{page === "movie-page" ? "" : review.movieTitle}</Card.Title>
+            <Card.Title className="movie-title">
+              {page === "movie-page" ? "" : review.movieTitle}
+            </Card.Title>
           </LinkContainer>
+          {/* <Card.Text>
+            {new Date(review.createdAt).toLocaleString("en-UK").substring(0, 17)}
+          </Card.Text> */}
+
+          {review.createdAt ? (
+            <Card.Text>{datetimeToRelativeTime(review.createdAt)}</Card.Text>
+          ) : (
+            <></>
+          )}
+
           <LinkContainer to={`/profiles/${review.authorUserId && review.authorUserId.username}`}>
             <Card.Link>{review.authorUserId && review.authorUserId.username}</Card.Link>
           </LinkContainer>
           {review.reviewText ? <Card.Text>Review: {review.reviewText}</Card.Text> : <></>}
           {review.rating ? <Card.Text>Rating: {review.rating}</Card.Text> : <></>}
+
           <LikesAndCommentsCounter review={review} />
           <LikeButton
             review={review}
