@@ -8,6 +8,7 @@ import ErrorPage from "../../components/error-page/ErrorPage";
 import jwt_decode from "jwt-decode";
 
 function UserFeedPage() {
+  const [userStatus, setUserStatus] = useState("old");
   const [currentUserProfile, setCurrentUserProfile] = useState({});
   const [userFeedReviewIds, setUserFeedReviewIds] = useState([]);
   const [errorMsg, setErrorMsg] = useState(null);
@@ -45,8 +46,12 @@ function UserFeedPage() {
     };
 
     if (Object.keys(currentUserProfile).length) {
-      if (currentUserProfile.followees) {
+      console.log("currentUserProfile.reviews.length", currentUserProfile.reviews.length);
+      if (currentUserProfile.followees.length) {
         fetchFolloweeReviewIds();
+      } else if (!currentUserProfile.reviews.length) {
+        console.log("setting new user status");
+        setUserStatus("new");
       }
     }
   }, [currentUserProfile]);
@@ -58,6 +63,22 @@ function UserFeedPage() {
   return (
     <div className="user-feed-page">
       <Container>
+        {userStatus === "new" ? (
+          <div>
+            <h1>Welcome!</h1>
+            <p>
+              This is your reviews feed, where reviews by yourself and people you follow will be
+              posted! To begin, head over to "Browse" or use the search bar to start penning a
+              review!
+            </p>
+            <p>
+              You may also go to "Profile" by using the dropdown at the top right hand corner to
+              find friends see what films they've been watching!
+            </p>
+          </div>
+        ) : (
+          <></>
+        )}
         <div className="reviews">
           {userFeedReviewIds &&
             userFeedReviewIds
