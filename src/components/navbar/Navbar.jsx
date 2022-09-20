@@ -3,8 +3,10 @@ import LogoutComp from "../logout/Logout";
 import { LinkContainer } from "react-router-bootstrap";
 import { useNavigate } from "react-router-dom";
 import SearchMovies from "./SearchMovies";
+import FollowingModal from "../../pages/profile-page/FollowingModal";
 
-function Navibar({ tokenState, user, setTokenState }) {
+
+function Navibar({ tokenState, user, setTokenState, followees}) {
   const navigate = useNavigate();
 
   const navToProfile = () => {
@@ -45,8 +47,8 @@ function Navibar({ tokenState, user, setTokenState }) {
               <NavDropdown.Item id="profileDropdown" onClick={navToProfile}>
                 Profile
               </NavDropdown.Item>
-              <NavDropdown.Item id="followingDropdown" onClick={navToFollowing}>
-                Following
+              <NavDropdown.Item>
+                <FollowingModal followees={followees}/>
               </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item id="logoutDropdown">

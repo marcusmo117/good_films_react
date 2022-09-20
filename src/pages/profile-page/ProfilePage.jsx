@@ -78,7 +78,7 @@ function ProfilePage() {
               setCurrentUserProfile={setCurrentUserProfile}
             />
           )}
-          <FollowingModal followees={profile.followees} profileInViewUsername={params.username} />
+          <FollowingModal followees={profile.followees} profileInViewUsername={params.username} page={"profile-page"} />
           <h5>Watched {profile.reviews && profile.reviews.length} film(s)</h5>
         </div>
         <div className="reviews">
