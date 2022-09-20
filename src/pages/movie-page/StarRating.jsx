@@ -1,28 +1,41 @@
-import React, { useState, useEffect } from "react";
-import Rating from "react-rating"
+import React, { useState } from "react";
 
-const StarRating = (props) => {
-  
+const StarRating = ({ rateScore, ratingFunction, component = null }) => {
   const [hover, setHover] = useState(0);
-  return (
-    <div className="star-rating">
-      {[...Array(10)].map((star, index) => {
-        index += 1;
-        return (
-          <button
-            type="button"
-            key={index}
-            className={index <= (hover || props.rateScore) ? "on" : "off"}
-            onClick={() => props.ratingFunction(index)}
-            onMouseEnter={() => setHover(index)}
-            onMouseLeave={() => setHover(props.rateScore)}
-          >
-            <span className="star"><i className="fa fa-star fa-2x"></i></span>
-          </button>
-        );
-      })}
-    </div>
-  );
+
+  let starButtons;
+  console.log("component", component);
+
+  if (component === "review-card") {
+    starButtons = [...Array(10)].map((star, index) => {
+      index += 1;
+      return (
+        <button type="button" key={index} className={index <= rateScore ? "on" : "off"}>
+          <span className="star">
+            <i className="fa fa-star fa-2x"></i>
+          </span>
+        </button>
+      );
+    });
+  } else {
+    starButtons = [...Array(10)].map((star, index) => {
+      index += 1;
+      return (
+        <button
+          type="button"
+          key={index}
+          className={index <= (hover || rateScore) ? "on" : "off"}
+          onClick={() => ratingFunction(index)}
+          onMouseEnter={() => setHover(index)}
+          onMouseLeave={() => setHover(rateScore)}>
+          <span className="star">
+            <i className="fa fa-star fa-2x"></i>
+          </span>
+        </button>
+      );
+    });
+  }
+  return <div className="star-rating">{starButtons}</div>;
 };
 
 export default StarRating;
