@@ -11,20 +11,20 @@ function MoviePage() {
   const params = useParams();
   const token = "Bearer " + localStorage.getItem("user_token");
   const tokenExists = localStorage.getItem("user_token");
-  const [movieInViewApiId, setMovieInViewApiId] = useState(params.movieApiId);
+  // const [movieInViewApiId, setMovieInViewApiId] = useState(params.movieApiId);
   const [movie, setMovie] = useState({});
   const [existingReview, setExistingReview] = useState({});
   const [reviewDate, setReviewDate] = useState([]);
   const [userReviews, setUserReviews] = useState([]);
 
-  useEffect(() => {
-    setMovieInViewApiId(params.movieApiId);
-  }, [params.movieApiId]);
+  // useEffect(() => {
+  //   setMovieInViewApiId(params.movieApiId);
+  // }, [params.movieApiId]);
 
   useEffect(() => {
     const fetchMovie = async () => {
-      const movieResult = await movieApis.getMovie(movieInViewApiId);
-      const ourMovieResult = await movieApis.getOurMovie(movieInViewApiId);
+      const movieResult = await movieApis.getMovie(params.movieApiId);
+      const ourMovieResult = await movieApis.getOurMovie(params.movieApiId);
       console.log("our movie result", ourMovieResult);
       let averageRating = "No votes yet!";
       let reviewIdsWithRating = [];
@@ -34,7 +34,7 @@ function MoviePage() {
         if (averageRating === 0) {
           averageRating = "No votes yet!";
         }
-        reviewIdsWithRating = ourMovieResult.data.reviewIds.filter((review) => review.rating > 0);
+        reviewIdsWithRating = ourMovieResult.data.reviewIds.filter((review) => review.rating);
       }
 
       setMovie({
@@ -42,14 +42,12 @@ function MoviePage() {
         averageRatingGF: averageRating,
         numRatings: reviewIdsWithRating.length,
       });
-
     };
 
-    const fetchUserReviews = async() => {
-      const ourMovieResult = await movieApis.getOurMovie(movieInViewApiId);
-      setUserReviews(
-        ourMovieResult.data.reviewIds);
-    }
+    const fetchUserReviews = async () => {
+      const ourMovieResult = await movieApis.getOurMovie(params.movieApiId);
+      setUserReviews(ourMovieResult.data.reviewIds);
+    };
 
     const fetchExistingReview = async () => {
       const reviewResults = await reviewApis.getReviewFromMovieAndUser(params.movieApiId, token);
@@ -57,31 +55,30 @@ function MoviePage() {
       setReviewDate([reviewResults.data.updatedAt.slice(0, 10)]);
     };
 
-      fetchMovie();
-      fetchExistingReview();
-      fetchUserReviews();
-    }, [movieInViewApiId]);
+    fetchMovie();
+    fetchExistingReview();
+    fetchUserReviews();
+  }, [params.movieApiId]);
 
+  const {
+    id,
+    name,
+    title,
+    poster_path,
+    popularity,
+    release_date,
+    runtime,
+    overview,
+    vote_average,
+    vote_count,
+    averageRatingGF,
+    numRatings,
+  } = movie;
 
-    const {
-      id,
-      name,
-      title,
-      poster_path,
-      popularity,
-      release_date,
-      runtime,
-      overview,
-      vote_average,
-      vote_count,
-      averageRatingGF,
-      numRatings,
-    } = movie;
-
-    console.log("Movie:", movie);
-    console.log("Review:", existingReview);
-    console.log("Date:", reviewDate);
-    console.log("MovieReviews:", userReviews)
+  console.log("Movie:", movie);
+  console.log("Review:", existingReview);
+  console.log("Date:", reviewDate);
+  console.log("MovieReviews:", userReviews);
 
   return (
     <div className="movie">
@@ -112,14 +109,11 @@ function MoviePage() {
             </div>
 
             <div className="reviews">
-              { userReviews === undefined ? (
-                "There are no user reviews available for this movie."
-              ) : (
-                userReviews.map((review) => (
-                <ReviewCard key={review._id} reviewId={review._id} page={"movie-page"} />
-                 ))
-              )
-              }
+              {userReviews === undefined
+                ? "There are no user reviews available for this movie."
+                : userReviews.map((review) => (
+                    <ReviewCard key={review._id} reviewId={review._id} page={"movie-page"} />
+                  ))}
             </div>
           </Col>
         </Row>
@@ -129,4 +123,3 @@ function MoviePage() {
 }
 
 export default MoviePage;
-

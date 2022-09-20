@@ -56,7 +56,9 @@ function ReviewCard({ reviewId, page }) {
     <div className="review-card">
       <Card>
         <Card.Body>
-          <Card.Title>{ page === "movie-page" ? "" : review.movieTitle}</Card.Title>
+          <LinkContainer to={`/movies/${review.movieId && review.movieId.movieApiId}`}>
+            <Card.Title>{page === "movie-page" ? "" : review.movieTitle}</Card.Title>
+          </LinkContainer>
           <LinkContainer to={`/profiles/${review.authorUserId && review.authorUserId.username}`}>
             <Card.Link>{review.authorUserId && review.authorUserId.username}</Card.Link>
           </LinkContainer>
@@ -81,7 +83,6 @@ function ReviewCard({ reviewId, page }) {
               <CommentBox review={review} setReview={setReview} />
             </div>
           </Collapse>
-          {/* <CommentThread review={review} /> */}
         </Card.Body>
       </Card>
       {areButtonsVisible ? (
