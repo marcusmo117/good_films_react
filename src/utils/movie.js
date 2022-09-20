@@ -27,9 +27,9 @@ const movieApis = {
     return response;
   },
 
-  getGenreResults: async (genreId) => {
+  getGenreResults: async (genreId, page) => {
     const response = await axios.get(
-      `${process.env.REACT_APP_BACKEND_URL}/api/v1/movies/genre/${genreId}`
+      `${process.env.REACT_APP_BACKEND_URL}/api/v1/movies/genre/${genreId}/${page}`
     );
     return response;
   },
