@@ -1,6 +1,7 @@
 import {Navigate} from 'react-router-dom'
 import jwt_decode from 'jwt-decode'
 import { DateTime } from "luxon";
+import { ContentPasteSearchOutlined } from '@mui/icons-material';
 
 function Auth(props) {
     // write our auth checking logic here in a single place
@@ -28,11 +29,10 @@ function Auth(props) {
             <Navigate to={'/login'} />
         )
     }
-    
 
     return (
         // props.component refers to components that is put in on app.jsx
-        <props.component></props.component>
+        <props.component setFollowState={props.setFollowState}></props.component>
     )
 }
 

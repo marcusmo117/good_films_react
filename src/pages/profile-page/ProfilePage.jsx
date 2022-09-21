@@ -11,7 +11,7 @@ import SearchUsers from "./SearchUsers";
 import jwt_decode from "jwt-decode";
 import { CircularProgress } from "@mui/material";
 
-function ProfilePage() {
+function ProfilePage(props) {
   const params = useParams();
   // const [profileInViewUsername, setProfileInViewUsername] = useState(params.username);
   const [profile, setProfile] = useState({});
@@ -78,6 +78,7 @@ function ProfilePage() {
               profileInViewUsername={params.username}
               currentUserProfile={currentUserProfile}
               setCurrentUserProfile={setCurrentUserProfile}
+              setFollowState={props.setFollowState}
             />
           )}
           <FollowingModal followees={profile.followees} profileInViewUsername={params.username} page={"profile-page"} />
