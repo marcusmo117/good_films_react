@@ -1,6 +1,10 @@
 import axios from "axios";
 
 const apis = {
+  getGender: async (username) => {
+    const response = await axios.get(`https://api.genderize.io/?name=${username}`);
+    return response;
+  },
   getProfiles: async (token) => {
     const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/profiles/`, {
       headers: {

@@ -1,7 +1,7 @@
 import React from "react";
 import Card from "../movie-card/MovieCard";
 import styles from "./MovieSection.scss";
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from "@mui/material/CircularProgress";
 
 function MovieSection(props) {
   const getMovie = props.section;
@@ -10,18 +10,16 @@ function MovieSection(props) {
 
   return (
     <div>
-      { props.isLoading === true ? 
-      <CircularProgress />
-      :
-      <div className="section-container">
-        <h3>{props.title} Movies</h3>
-        <div className="movie-container">
-          {listMovies}
+      {props.isLoading === true ? (
+        <CircularProgress />
+      ) : (
+        <div className="section-container">
+          <h3 className="movie-section-title">{props.title} Movies</h3>
+          <div className="movie-container">{listMovies}</div>
         </div>
-      </div>
-      }
+      )}
     </div>
-    )
+  );
 }
 
 export default MovieSection;
