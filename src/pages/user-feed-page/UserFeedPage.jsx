@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import ReviewCard from "../profile-page/ReviewCard";
 import ErrorPage from "../../components/error-page/ErrorPage";
 import jwt_decode from "jwt-decode";
+import { CircularProgress } from "@mui/material";
 
 function UserFeedPage() {
   const [userStatus, setUserStatus] = useState("old");
@@ -80,14 +81,22 @@ function UserFeedPage() {
           <></>
         )}
         <div className="reviews">
-          {userFeedReviewIds &&
-            userFeedReviewIds
-              .sort((reviewA, reviewB) => {
-                return new Date(reviewB.createdAt) - new Date(reviewA.createdAt);
-              })
-              .map((review) => (
-                <ReviewCard key={review._id} reviewId={review._id} page={"user-feed-page"} />
-              ))}
+          {!userFeedReviewIds ?
+            (
+              < CircularProgress />
+            )
+          :
+            (
+              userFeedReviewIds &&
+                userFeedReviewIds
+                  .sort((reviewA, reviewB) => {
+                    return new Date(reviewB.createdAt) - new Date(reviewA.createdAt);
+                  })
+                  .map((review) => (
+                    <ReviewCard key={review._id} reviewId={review._id} page={"user-feed-page"} />
+                  ))
+            )
+          }
         </div>
       </Container>
     </div>

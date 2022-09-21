@@ -9,6 +9,7 @@ import FollowingModal from "./FollowingModal";
 import FollowUnfollowButton from "./FollowUnfollowButton";
 import SearchUsers from "./SearchUsers";
 import jwt_decode from "jwt-decode";
+import { CircularProgress } from "@mui/material";
 
 function ProfilePage() {
   const params = useParams();
@@ -81,12 +82,26 @@ function ProfilePage() {
           <FollowingModal followees={profile.followees} profileInViewUsername={params.username} page={"profile-page"} />
           <h5>Watched {profile.reviews && profile.reviews.length} film(s)</h5>
         </div>
-        <div className="reviews">
+        { !profile.reviews ? 
+          (
+            <CircularProgress />
+          )
+          :
+          (
+            <div className="reviews">
+              {profile.reviews &&
+                profile.reviews.map((review) => (
+                  <ReviewCard key={review._id} reviewId={review._id} page={"profile-page"} />
+                ))}
+            </div>
+          )
+        }
+        {/* <div className="reviews">
           {profile.reviews &&
             profile.reviews.map((review) => (
               <ReviewCard key={review._id} reviewId={review._id} page={"profile-page"} />
             ))}
-        </div>
+        </div> */}
       </Container>
     </div>
   );
