@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import reviewApis from "../../utils/review";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import styles from "./MovieReview.scss";
 import { toast } from "react-toastify";
 
@@ -15,6 +15,7 @@ function EditMovieReview(props) {
   const token = "Bearer " + localStorage.getItem("user_token");
   const tokenExists = localStorage.getItem("user_token");
   const reviewId = params.reviewId;
+  const navigate = useNavigate()
 
   useEffect(() => {
     console.log("rating before change: " + props.review.rating);
@@ -37,8 +38,9 @@ function EditMovieReview(props) {
     console.log(userReview);
 
     try {
-      reviewApis.updateReview(userReview, token, reviewId);
+      const response = await reviewApis.updateReview(userReview, token, reviewId);
       toast.success("Update successful!");
+      navigate(`/reviews/${reviewId}`)
       return;
     } catch (error) {
       toast.error(error.response.data);
