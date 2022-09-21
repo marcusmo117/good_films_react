@@ -111,28 +111,61 @@ function MoviePage() {
                 <p>TMD No. of Votes: {vote_count}</p>
                 <p>Good Films Average Vote Score: {averageRatingGF}</p>
                 <p>Good Films No. of Votes: {numRatings}</p>
-
-                <div>
-                  <h5>Rate and review this movie</h5>
+                {/* <div>
+                  <h5>Review this movie</h5>
                   {!tokenExists ? 
                   (
-                    "Sign in to rate and review movie."
-                  ) :
+                    "Sign in to review and see reviews from other users."
+                  )
+                  :
+                  ( 
+                    <div className="review">
+                      <MovieReview token={token} existingReview={existingReview} reviewDate={reviewDate} />
+                      <h5>User Reviews</h5>
+                      <div>
+                        {!userReviews? 
+                        (
+                          "There are no user reviews available for this movie."
+                        )
+                        :
+                        (
+                          userReviews.map((review) => (
+                          <ReviewCard key={review._id} reviewId={review._id} page={"movie-page"} />
+                          ))
+                        )
+                        }
+                      </div>
+                    </div>
+                  )
+                  }
+                </div> */}
+                 <div>
+                  <h5>Review this movie</h5>
+                  {!tokenExists ? 
                   (
-                    <MovieReview token={token} existingReview={existingReview} reviewDate={reviewDate} />
+                    "Sign in to review."
                   )
-                  }
-                </div>
-
-                <div className="user-reviews">
-                  { userReviews === undefined ? (
-                    "There are no user reviews available for this movie."
-                  ) : (
-                    userReviews.map((review) => (
-                    <ReviewCard key={review._id} reviewId={review._id} page={"movie-page"} />
-                    ))
+                  :
+                  ( 
+                  <MovieReview token={token} existingReview={existingReview} reviewDate={reviewDate} />
                   )
-                  }
+                  }     
+                    <div className="review">
+                      <h5>User Reviews</h5>
+                      <div>
+                        {!userReviews? 
+                        (
+                          "There are no user reviews available for this movie."
+                        )
+                        :
+                        (
+                          userReviews.map((review) => (
+                          <ReviewCard key={review._id} reviewId={review._id} page={"movie-page"} />
+                          ))
+                        )
+                        }
+                      </div>
+                    </div>
                 </div>
               </Col>
             </Row>
