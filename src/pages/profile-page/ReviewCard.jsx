@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import LikeButton from "./LikeButton";
 import LikesAndCommentsCounter from "./LikesAndCommentsCounter";
 import movieApis from "../../utils/movie";
+import profileApis from "../../utils/profile";
 import StarRating from "../movie-page/StarRating";
 
 // import CommentThread from "./CommentThread";
@@ -25,6 +26,7 @@ function ReviewCard({ reviewId, page }) {
   const currentUserUsername = jwt_decode(token).data.username;
   const [review, setReview] = useState({});
   const [movie, setMovie] = useState({});
+  const [userHairLength, setUserHairLength] = useState(null);
   const [areButtonsVisible, setAreButtonsVisible] = useState(false);
   const [openCommentBox, setOpenCommentBox] = useState(false);
   const params = useParams();
@@ -42,8 +44,19 @@ function ReviewCard({ reviewId, page }) {
     const fetchMovie = async () => {
       try {
         const movieResult = await movieApis.getMovie(review.movieId.movieApiId);
+
         setMovie(movieResult.data);
       } catch (err) {}
+    };
+
+    const fetchUserGender = async () => {
+      try {
+        const response = await profileApis.getGender(review.authorUserId.username);
+
+        setUserHairLength(response.data.gender === "female" ? "longHair" : "shortHair");
+      } catch (err) {
+        setUserHairLength("shortHair");
+      }
     };
     if (review.authorUserId && page === "review-page") {
       if (review.authorUserId.username === currentUserUsername) {
@@ -51,6 +64,7 @@ function ReviewCard({ reviewId, page }) {
       }
     }
     fetchMovie();
+    fetchUserGender();
   }, [review]);
 
   const deleteReviewBackend = async () => {
@@ -71,82 +85,94 @@ function ReviewCard({ reviewId, page }) {
     <div className="review-card">
       <Card className="my-5">
         <Card.Header>
-          <h3>
-          <img src={`https://avatars.dicebear.com/api/avataaars/${review.authorUserId && review.authorUserId.username}.svg?size=80&radius=50`}></img>
-          <LinkContainer
-              to={`/profiles/${review.authorUserId && review.authorUserId.username}`}>
-              <Card.Link>
-                {review.authorUserId && review.authorUserId.username}
-              </Card.Link>
-            </LinkContainer>
-            {" rated "} 
-          </h3>
-          {review.rating ? (
-              <StarRating rateScore={review.rating} component="review-card"></StarRating>
-            ) : (
-              <></>
-          )}
-        </Card.Header>
-        <Card.Body>
-          <Row>
-            {page === "movie-page" ? (
-              <></>
-            ) : (
-              <Col md={3}>
-                <div class="movie">
-                  <Image className="img-thumbnail" width="250"
-                    src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`}></Image>
-                </div>
-              </Col>
-            )}
-
-            <Col>
+          <Row className="header">
+            <Col md="auto pe-1">
+              {userHairLength ? (
+                <img
+                  className="review-card-avatar"
+                  src={`https://avatars.dicebear.com/api/avataaars/${
+                    review.authorUserId && review.authorUserId.username
+                  }.svg?top=${userHairLength}&facialHairChance=0&size=60&radius=50`}></img>
+              ) : (
+                <></>
+              )}
+            </Col>
+            <Col md="auto" className="align-self-center ps-0">
+              <LinkContainer
+                to={`/profiles/${review.authorUserId && review.authorUserId.username}`}>
+                <Card.Link className="review-card-username">
+                  {review.authorUserId && review.authorUserId.username}
+                </Card.Link>
+              </LinkContainer>
+              {" reviewed "}
               <LinkContainer to={`/movies/${review.movieId && review.movieId.movieApiId}`}>
                 {page === "movie-page" ? (
                   <></>
                 ) : (
-                  <h1>
-                    <Card.Title className="movie-title">{review.movieTitle}</Card.Title>
-                  </h1>
+                  <Card.Link className="review-card-movie-title m-0">{review.movieTitle}</Card.Link>
                 )}
               </LinkContainer>
-
+            </Col>
+            <Col className="align-self-center">
               {review.createdAt ? (
-                <Card.Text>{datetimeToRelativeTime(review.createdAt)}</Card.Text>
+                <Card.Text className="text-end">
+                  {datetimeToRelativeTime(review.createdAt)}
+                </Card.Text>
               ) : (
                 <></>
               )}
-
-              
-              {review.reviewText ? <Card.Text>Review: {review.reviewText}</Card.Text> : <></>}
-              
-
-              <LikesAndCommentsCounter review={review} />
-              <LikeButton
-                review={review}
-                setReview={setReview}
-                currentUserUsername={currentUserUsername}
-              />
-              <Card.Link
-                style={{ cursor: "pointer" }}
-                onClick={() => setOpenCommentBox(!openCommentBox)}>
-                Comment
-              </Card.Link>
-              {page === "review-page" ? (
-                <></>
-              ) : (
-                <LinkContainer to={"/reviews/" + review._id}>
-                  <Card.Link>See review</Card.Link>
-                </LinkContainer>
-              )}
-
-              <Collapse in={openCommentBox}>
-                <div>
-                  <CommentBox review={review} setReview={setReview} />
-                </div>
-              </Collapse>
             </Col>
           </Row>
+        </Card.Header>
+        <Card.Body>
+          {review.rating ? (
+            <>
+              <StarRating rateScore={review.rating} component="review-card"></StarRating>
+            </>
+          ) : (
+            <></>
+          )}
+          {review.reviewText ? (
+            <Card.Text className="text-start mt-3">{review.reviewText}</Card.Text>
+          ) : (
+            <></>
+          )}
+
+          {page === "movie-page" ? (
+            <></>
+          ) : (
+            <div className="movie text-center mb-3">
+              <Image
+                className="img-thumbnail"
+                width="80%"
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}></Image>
+            </div>
+          )}
+
+          <LikesAndCommentsCounter review={review} />
+          <LikeButton
+            review={review}
+            setReview={setReview}
+            currentUserUsername={currentUserUsername}
+          />
+          <Card.Link
+            style={{ cursor: "pointer" }}
+            onClick={() => setOpenCommentBox(!openCommentBox)}>
+            Comment
+          </Card.Link>
+          {page === "review-page" ? (
+            <></>
+          ) : (
+            <LinkContainer to={"/reviews/" + review._id}>
+              <Card.Link>See review</Card.Link>
+            </LinkContainer>
+          )}
+
+          <Collapse in={openCommentBox}>
+            <div>
+              <CommentBox review={review} setReview={setReview} />
+            </div>
+          </Collapse>
         </Card.Body>
       </Card>
       {areButtonsVisible ? (
