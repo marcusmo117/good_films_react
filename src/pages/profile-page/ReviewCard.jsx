@@ -72,9 +72,12 @@ function ReviewCard({ reviewId, page }) {
       <Card className="my-5">
         <Card.Header>
           <h3>
-            <LinkContainer
+          <img src={`https://avatars.dicebear.com/api/avataaars/${review.authorUserId && review.authorUserId.username}.svg?size=80&radius=50`}></img>
+          <LinkContainer
               to={`/profiles/${review.authorUserId && review.authorUserId.username}`}>
-              <Card.Link>{review.authorUserId && review.authorUserId.username}</Card.Link>
+              <Card.Link>
+                {review.authorUserId && review.authorUserId.username}
+              </Card.Link>
             </LinkContainer>
             {" rated "} 
           </h3>
