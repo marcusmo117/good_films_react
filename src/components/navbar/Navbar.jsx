@@ -39,6 +39,7 @@ function Navibar({ tokenState, user, setTokenState, followees}) {
             <SearchMovies />
           </Col>
           <Col className="d-flex justify-content-end align-items-center">
+          <img src={`https://avatars.dicebear.com/api/avataaars/${user}.svg?size=35&radius=50`}></img>
             <NavDropdown
               className="me-4"
               title={"Hi, " + user + "!"}

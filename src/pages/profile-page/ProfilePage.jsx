@@ -71,6 +71,7 @@ function ProfilePage() {
         </Row>
 
         <div className="profile mt-5">
+          <img src={`https://avatars.dicebear.com/api/avataaars/${profile.username}.svg?size=80&radius=50`}></img>
           <h2>{profile.username}</h2>
           {!profile.isCurrentUser && (
             <FollowUnfollowButton

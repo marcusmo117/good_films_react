@@ -33,7 +33,7 @@ function FollowingModal({ followees, profileInViewUsername, page }) {
             {followees &&
               followees.map((followee) => (
                 <li key={followee}>
-                  <Link to={"/profiles/" + followee} onClick={handleClose}>{followee}</Link>
+                  <Link to={"/profiles/" + followee} onClick={handleClose}><img src={`https://avatars.dicebear.com/api/avataaars/${followee}.svg?size=50&radius=50`}></img>{followee}</Link>
                   {/* <a href={"/profiles/" + followee}>{followee}</a> */}
                 </li>
               ))}
