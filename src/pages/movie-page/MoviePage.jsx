@@ -106,22 +106,15 @@ function MoviePage() {
             <p>Good Films No. of Votes: {numRatings}</p>
 
             <div>
-              {existingReview === null ? (
-                <MovieReview token={token} tokenExists={tokenExists} />
-              ) : (
-                <p>
-                  You reviewed this movie on {reviewDate}. Click here to see your{" "}
-                  <Link to={`/reviews/${existingReview._id}`}>review</Link>.{" "}
-                </p>
-              )}
-            </div>
-
-            <div className="reviews">
-              {userReviews === undefined
-                ? "There are no user reviews available for this movie."
-                : userReviews.map((review) => (
-                    <ReviewCard key={review._id} reviewId={review._id} page={"movie-page"} />
-                  ))}
+              <h5>Rate and review this movie</h5>
+              {!tokenExists ? 
+              (
+                "Sign in to rate and review movie."
+              ) :
+              (
+                <MovieReview token={token} existingReview={existingReview} reviewDate={reviewDate} />
+              )
+              }
             </div>
           </Col>
         </Row>

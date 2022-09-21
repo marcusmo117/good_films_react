@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import apis from "../../utils/review";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import styles from "./MovieReview.scss";
 import StarRating from "./StarRating";
 
@@ -37,12 +37,9 @@ function MovieReview(props) {
 
   return (
     <div className="review">
-      <h3>Rate and review this movie</h3>
-
       <div>
-        {!props.tokenExists ? (
-          "Sign in to rate"
-        ) : (
+        {props.existingReview === null ? 
+        (
           <div className="container">
             <Form onSubmit={handleSubmit}>
               <StarRating ratingFunction={setNewRating} rateScore={newRating} />
@@ -61,7 +58,13 @@ function MovieReview(props) {
               </button>
             </Form>
           </div>
-        )}
+        )
+        :
+        (
+          <p>You reviewed this movie on {props.reviewDate}. Click here to see your{" "}
+          <Link to={`/reviews/${props.existingReview._id}`}>review</Link>.{" "}</p>
+        )
+      }
       </div>
     </div>
   );
