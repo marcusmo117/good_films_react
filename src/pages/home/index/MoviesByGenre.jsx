@@ -25,7 +25,7 @@ const MoviesByGenre = () => {
     fetchGenre();
   });
 
-  // Change page
+  // Pagination to allow user to change page
   const handleChange = (event, value) => {
     setPage(value);
   };
