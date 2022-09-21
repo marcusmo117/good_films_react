@@ -111,7 +111,7 @@ function MoviePage() {
                 <p>TMD No. of Votes: {vote_count}</p>
                 <p>Good Films Average Vote Score: {averageRatingGF}</p>
                 <p>Good Films No. of Votes: {numRatings}</p>
-                {/* <div>
+                <div>
                   <h5>Review this movie</h5>
                   {!tokenExists ? 
                   (
@@ -138,34 +138,6 @@ function MoviePage() {
                     </div>
                   )
                   }
-                </div> */}
-                 <div>
-                  <h5>Review this movie</h5>
-                  {!tokenExists ? 
-                  (
-                    "Sign in to review."
-                  )
-                  :
-                  ( 
-                  <MovieReview token={token} existingReview={existingReview} reviewDate={reviewDate} />
-                  )
-                  }     
-                    <div className="review">
-                      <h5>User Reviews</h5>
-                      <div>
-                        {!userReviews? 
-                        (
-                          "There are no user reviews available for this movie."
-                        )
-                        :
-                        (
-                          userReviews.map((review) => (
-                          <ReviewCard key={review._id} reviewId={review._id} page={"movie-page"} />
-                          ))
-                        )
-                        }
-                      </div>
-                    </div>
                 </div>
               </Col>
             </Row>
