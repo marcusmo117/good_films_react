@@ -17,7 +17,9 @@ function Navibar({ tokenState, user, setTokenState, followees, followState }) {
       try {
         const response = await profileApis.getGender(user);
         setUserHairLength(response.data.gender === "female" ? "longHair" : "shortHair");
-      } catch (err) {}
+      } catch (err) {
+        setUserHairLength("shortHair");
+      }
     };
     if (user) {
       fetchUserGender();
@@ -25,10 +27,6 @@ function Navibar({ tokenState, user, setTokenState, followees, followState }) {
   }, []);
 
   const navToProfile = () => {
-    navigate("/profiles/" + user);
-  };
-
-  const navToFollowing = () => {
     navigate("/profiles/" + user);
   };
 

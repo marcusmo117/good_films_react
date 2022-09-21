@@ -54,7 +54,9 @@ function ReviewCard({ reviewId, page }) {
         const response = await profileApis.getGender(review.authorUserId.username);
 
         setUserHairLength(response.data.gender === "female" ? "longHair" : "shortHair");
-      } catch (err) {}
+      } catch (err) {
+        setUserHairLength("shortHair");
+      }
     };
     if (review.authorUserId && page === "review-page") {
       if (review.authorUserId.username === currentUserUsername) {

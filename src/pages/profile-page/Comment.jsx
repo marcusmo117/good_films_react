@@ -13,7 +13,10 @@ function Comment({ comment }) {
       try {
         const response = await profileApis.getGender(comment.authorUserId.username);
         setUserHairLength(response.data.gender === "female" ? "longHair" : "shortHair");
-      } catch (err) {}
+      } catch (err) {
+        setUserHairLength("shortHair")
+
+      }
     };
     fetchUserGender();
   }, []);

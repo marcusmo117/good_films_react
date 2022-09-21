@@ -28,7 +28,9 @@ function FollowingModal({ followees, profileInViewUsername, page }) {
         );
 
         setUsersHairLength([...hairLengths]);
-      } catch (err) {}
+      } catch (err) {
+        setUsersHairLength(Array(followees.length).fill("shortHair"));
+      }
     };
     fetchUsersGender();
   }, [profileInViewUsername]);

@@ -64,7 +64,7 @@ function UserFeedPage() {
 
   return (
     <div className="user-feed-page">
-      <Container>
+      <Container className="container-restrict-width">
         {userStatus === "new" ? (
           <div>
             <h1>Welcome!</h1>

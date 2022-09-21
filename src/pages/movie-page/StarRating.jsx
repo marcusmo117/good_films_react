@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import styles from "./StarRating.scss";
 import Tooltip from "@mui/material/Tooltip";
 
 const StarRating = ({ rateScore, ratingFunction, component = null }) => {

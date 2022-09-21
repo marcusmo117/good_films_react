@@ -52,7 +52,9 @@ function ProfilePage(props) {
       try {
         const response = await profileApis.getGender(params.username);
         setUserHairLength(response.data.gender === "female" ? "longHair" : "shortHair");
-      } catch (err) {}
+      } catch (err) {
+        setUserHairLength("shortHair");
+      }
     };
 
     // setIsFollowing(false);
@@ -68,7 +70,7 @@ function ProfilePage(props) {
 
   return (
     <div className="profile-page">
-      <Container>
+      <Container className="container-restrict-width">
         <h1>Profile</h1>
         <Row className="d-flex justify-content-center mb-5">
           <Col md={5}>
