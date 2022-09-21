@@ -4,6 +4,7 @@ import MovieSection from "../movie-section/MovieSection";
 import FilterDropdown from "../filter/FilterDropdown";
 import styles from "./Index.scss";
 import { useParams } from "react-router-dom";
+import { Container, Row, Col} from "react-bootstrap";
 import { CircularProgress } from "@mui/material";
 import { Pagination } from "@mui/material";
 
@@ -32,25 +33,38 @@ const MoviesByGenre = () => {
 
   return (
     <div className="section">
-      <h1>Movies By Genre</h1>
       {
-        !genreList.data ? 
+        !genre.data ? 
         ( < CircularProgress /> )
         :
         (
           <div>
-            <div className="filter"> { genreList.data? <FilterDropdown dropdownGenres={genreList} /> : "Unable to get list of genres" }</div>
-            <div className="section">{genre.data ? <MovieSection section={genre.data} title={params.genre} /> : "No movies in this genre"}</div>
+            <Container>
+              <Row>
+                <Col className="filter">
+                  <h5>Browse By</h5>
+                  <div>{ genreList.data? <FilterDropdown dropdownGenres={genreList} /> : "Unable to get list of genres" }</div>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <div className="section">{genre.data ? <MovieSection section={genre.data} title={params.genre} /> : "No movies in this genre"}</div>
+                </Col>
+              </Row>
+              <Row>
+                <Col className="pagination">
+                  <Pagination
+                    count={10}
+                    page={page}
+                    onChange={handleChange}
+                    size="large"
+                    />
+                </Col>
+              </Row>
+            </Container>
           </div>
         )
-      }  
-      <div className="pagination">
-        <Pagination
-          count={10}
-          page={page}
-          onChange={handleChange}
-          />
-      </div>
+      } 
     </div>
   );
 }

@@ -10,7 +10,7 @@ function FilterDropdown(props) {
   return (
     <div>
         <Dropdown>
-          <Dropdown.Toggle variant="success" id="dropdown-basic">
+          <Dropdown.Toggle>
             Genres
           </Dropdown.Toggle>
           <Dropdown.Menu>

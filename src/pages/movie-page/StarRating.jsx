@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 
+import Tooltip from '@mui/material/Tooltip';
+
+
 const StarRating = ({ rateScore, ratingFunction, component = null }) => {
   const [hover, setHover] = useState(0);
 
@@ -29,7 +32,7 @@ const StarRating = ({ rateScore, ratingFunction, component = null }) => {
           onMouseEnter={() => setHover(index)}
           onMouseLeave={() => setHover(rateScore)}>
           <span className="star">
-            <i className="fa fa-star fa-2x"></i>
+            <Tooltip title={index} placement="top"><i className="fa fa-star fa-2x"></i></Tooltip>
           </span>
         </button>
       );

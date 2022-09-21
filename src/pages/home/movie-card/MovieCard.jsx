@@ -6,17 +6,16 @@ import { BorderClear } from '@mui/icons-material';
 
 function MovieCard(props) {
 
-  const { id, poster_path, vote_average } = props.movieDetails;
+  const { id, poster_path } = props.movieDetails;
  
   return (
+    <div>
       <Link to={`/movies/${id}`}>
-        <Card className="bg-dark text-white" style={{ margin: '0.5rem', width: "10rem" }}>
+        <Card className="card">
           <Card.Img src={`https://image.tmdb.org/t/p/original${poster_path}`} alt="movie poster" />
-          <Card.ImgOverlay>
-            <Card.Text>Average Score: {vote_average}</Card.Text>
-          </Card.ImgOverlay>
         </Card>
       </Link>
+    </div>
   );
 }
 

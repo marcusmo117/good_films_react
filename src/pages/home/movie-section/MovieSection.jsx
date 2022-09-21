@@ -14,7 +14,7 @@ function MovieSection(props) {
       <CircularProgress />
       :
       <div className="section-container">
-      <h3>{props.title}</h3>
+        <h3>{props.title} Movies</h3>
         <div className="movie-container">
           {listMovies}
         </div>
