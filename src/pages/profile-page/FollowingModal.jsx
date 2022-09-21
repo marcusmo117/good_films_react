@@ -3,8 +3,12 @@ import { Link } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
-function FollowingModal({ followees, profileInViewUsername, page }) {
+function FollowingModal({ followees, profileInViewUsername, page}) {
   const [show, setShow] = useState(false);
+
+  useEffect(() =>{
+    console.log('followees changing', followees)
+  },[followees])
 
   useEffect(() => {
     setShow(false);
@@ -16,11 +20,11 @@ function FollowingModal({ followees, profileInViewUsername, page }) {
   return (
     <>
       {page === "profile-page" ? (
-          <h5 className="mt-5" onClick={handleShow}>
+          <h5 key={followees} className="mt-5" onClick={handleShow}>
             Following {followees && followees.length} user(s)
           </h5>
         ) : (
-          <div onClick={handleShow}>
+          <div key={followees} onClick={handleShow}>
           Following {followees && followees.length} user(s)
           </div>
         )}

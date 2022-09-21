@@ -30,6 +30,8 @@ function App() {
   const [tokenState, setTokenState] = useState();
   const [user, setUser] = useState();
   const [profile, setProfile] = useState({});
+  const [followState, setFollowState] = useState(null);
+
   const token = localStorage.getItem("user_token");
   const tokenToSend = "Bearer " + token;
 
@@ -42,23 +44,25 @@ function App() {
 
   const getFollowers = async () => {
     try {
+      await new Promise((r) => setTimeout(r, 500));
       const profileResult = await apis.getProfile(user, tokenToSend);
       setProfile(profileResult.data);
     } catch (err) {
-      console.log("error in profile");
-      toast.error(err.response.data.error);
+      // toast.error(err.response.data.error);
     }
   };
 
   useEffect(() => {
     getToken();
-    console.log("getToken running");
   }, [tokenState]);
 
   useEffect(() => {
     getFollowers();
-    console.log("user when user changed: " + user);
   }, [user]);
+
+  useEffect(() => {
+    getFollowers();
+  }, [followState]);
 
   return (
     <div className="App">
@@ -68,6 +72,7 @@ function App() {
         user={user}
         setTokenState={setTokenState}
         followees={profile.followees}
+        followState={followState}
       />
       <Routes>
         {/* 
@@ -100,7 +105,9 @@ function App() {
         />
         <Route
           path="/profiles/:username"
-          element={<Auth component={ProfilePage} />}
+          element={
+            <Auth component={ProfilePage} setFollowState={setFollowState} />
+          }
         />
         <Route
           path="/reviews/:reviewId"

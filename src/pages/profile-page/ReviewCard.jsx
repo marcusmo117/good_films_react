@@ -68,7 +68,7 @@ function ReviewCard({ reviewId, page }) {
   };
 
   return (
-    <div className="review-card align-items-center">
+    <div className="review-card">
       <Card className="my-5">
         <Card.Header>
           <h3>
