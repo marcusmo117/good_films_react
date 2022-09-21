@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import styles from "./FollowingModal.scss"
 
 function FollowingModal({ followees, profileInViewUsername, page }) {
   const [show, setShow] = useState(false);
@@ -33,7 +34,7 @@ function FollowingModal({ followees, profileInViewUsername, page }) {
             {followees &&
               followees.map((followee) => (
                 <li key={followee}>
-                  <Link to={"/profiles/" + followee} onClick={handleClose}><img src={`https://avatars.dicebear.com/api/avataaars/${followee}.svg?size=50&radius=50`}></img>{followee}</Link>
+                  <Link to={"/profiles/" + followee} onClick={handleClose} style={{ textDecoration: "none" }}><img src={`https://avatars.dicebear.com/api/avataaars/${followee}.svg?size=50&radius=50`}></img>{followee}</Link>
                   {/* <a href={"/profiles/" + followee}>{followee}</a> */}
                 </li>
               ))}
