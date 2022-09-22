@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-<<<<<<< HEAD
 import Tooltip from '@mui/material/Tooltip';
-
-=======
-import Tooltip from "@mui/material/Tooltip";
->>>>>>> 7825bb0e3d928a16c39bbf6f5fc96f7553e92846
 
 const StarRating = ({ rateScore, ratingFunction, component = null }) => {
   const [hover, setHover] = useState(0);

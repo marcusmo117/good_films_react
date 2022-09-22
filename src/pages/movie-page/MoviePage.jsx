@@ -80,14 +80,13 @@ function MoviePage() {
     vote_count,
     averageRatingGF,
     numRatings,
-    backdrop_path,
     tagline,
   } = movie;
 
-  console.log("Movie:", movie);
-  console.log("Review:", existingReview);
-  console.log("Date:", reviewDate);
-  console.log("MovieReviews:", userReviews);
+  // console.log("Movie:", movie);
+  // console.log("Review:", existingReview);
+  // console.log("Date:", reviewDate);
+  // console.log("MovieReviews:", userReviews);
 
   if (errorMsg) {
     return <ErrorPage message={errorMsg} />;
@@ -121,7 +120,6 @@ function MoviePage() {
                     <p>{overview}</p>
                   </Col>
                   <Col md={4}>
-                    <h4>Movie Rating</h4>
                     <div className="movie-page-movie-rating">
                       <h6>TMD</h6>
                       <p>Average Vote Score: {vote_average}</p>
