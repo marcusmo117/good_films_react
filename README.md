@@ -1,70 +1,68 @@
-# Getting Started with Create React App
+# Good Films
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Introduction
 
-## Available Scripts
+Good Films is a social app that allows users to search for movies and reviews. Users can sign up and review movies that they’ve watched. Reviews are editable and deletable. Think Goodreads but for movies!
 
-In the project directory, you can run:
+Additionally, users are also able to ‘follow’ other users (instagram-esque style) whereby reviews of followees will be shown on the followers’ user feed. Users can also like and comment on these reviews.
 
-### `npm start`
+Check us out at [Good Films](https://marcusmo117.github.io/good_films_react/#/movies).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Links to Repos
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- [React Frontend ](https://github.com/marcusmo117/good_films_react)
+- [Express Backend ](https://github.com/lekpeng/good_films_express)
 
-### `npm test`
+## Technologies
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- MERN stack
+- APIs from [The Movie Database](https://www.themoviedb.org/documentation/api), [DiceBear Avatars](https://avatars.dicebear.com/) and [Genderize](https://genderize.io/).
+- Github Pages for frontend React deployment
+- Cyclic for backend Express deployment
 
-### `npm run build`
+## Packages used
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Handle browser request: Axios, Cors,
+- Authorisation: Bcrypt, Express-joi-validation, Jsonwebtoken
+- Format commit messages: [Commitizen](https://www.npmjs.com/package/commitizen)
+- Autocomplete in search bar: [React Bootstrap Typeahead](https://www.npmjs.com/package/react-bootstrap-typeahead)
+- Style: React Bootstrap, Material UI
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Planned Model Schema
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![ModelSchema](./ModelSchema.png)
 
-### `npm run eject`
+## Routes
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+| Page           | Front End URL               |
+| -------------- | --------------------------- |
+| Register       | /register                   |
+| Login          | /register                   |
+| Home/User Feed | /                           |
+| Movies         | /movies                     |
+|                | /movies/:movieId            |
+|                | /movies/:genreName/:genreId |
+| Reviews        | /reviews/:reviewId          |
+| Reviews        | /reviews/:reviewId/edit     |
+| Profiles       | /profile/:userId            |
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Folder Structure
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+![FolderStructure](./FolderStructure.png)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Workflow
 
-## Learn More
+- Trello to keep track of individual tasks and share documents (schemas, routes, wireframe, etc..)
+- Slack for day to day communications
+- Development
+  - Each member will pull from master branch from github into local and start working on a feature branch in local
+  - Test for functionality and bugs on local
+  - Once feature is done on local, to push to feature branch on github and merge with master branch on github
+  - Test for functionality and bugs on ‘prod’ after every deployment
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Future Ideas
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- [ ] Chat function between followers (friends)
+- [ ] Login via Google/ FB
+- [ ] Refreshing of user token
+- [ ] Recommendations page based on users’ past reviewed movies
