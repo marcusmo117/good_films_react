@@ -10,21 +10,21 @@ import profileApis from "../../utils/profile";
 function Navibar({ tokenState, user, setTokenState, followees, followState }) {
   const navigate = useNavigate();
 
-  const [userHairLength, setUserHairLength] = useState(null);
+  // const [userHairLength, setUserHairLength] = useState(null);
 
-  useEffect(() => {
-    const fetchUserGender = async () => {
-      try {
-        const response = await profileApis.getGender(user);
-        setUserHairLength(response.data.gender === "female" ? "longHair" : "shortHair");
-      } catch (err) {
-        setUserHairLength("shortHair");
-      }
-    };
-    if (user) {
-      fetchUserGender();
-    }
-  }, []);
+  // useEffect(() => {
+  //   const fetchUserGender = async () => {
+  //     try {
+  //       const response = await profileApis.getGender(user);
+  //       setUserHairLength(response.data.gender === "female" ? "longHair" : "shortHair");
+  //     } catch (err) {
+  //       setUserHairLength("shortHair");
+  //     }
+  //   };
+  //   if (user) {
+  //     fetchUserGender();
+  //   }
+  // }, []);
 
   const navToProfile = () => {
     navigate("/profiles/" + user);
@@ -52,13 +52,16 @@ function Navibar({ tokenState, user, setTokenState, followees, followState }) {
             <SearchMovies />
           </Col>
           <Col className="d-flex justify-content-end align-items-center">
-            {userHairLength ? (
+            <img
+              className="navbar-avatar"
+              src={`https://avatars.dicebear.com/api/avataaars/${user}.svg?size=35&radius=50`}></img>{" "}
+            {/* {userHairLength ? (
               <img
                 className="navbar-avatar"
                 src={`https://avatars.dicebear.com/api/avataaars/${user}.svg?top=${userHairLength}&facialHairChance=0&size=35&radius=50`}></img>
             ) : (
               <></>
-            )}{" "}
+            )}{" "} */}
             <NavDropdown
               className="me-4"
               title={"Hi, " + user + "!"}
