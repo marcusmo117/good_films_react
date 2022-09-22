@@ -102,7 +102,7 @@ function MoviePage() {
           <Container>
             <Row>
               <Col md={4}>
-                <img src={`https://image.tmdb.org/t/p/original${poster_path}`}></img>
+                <img src={`https://image.tmdb.org/t/p/w500${poster_path}`}></img>
               </Col>
               <Col md={8}>
                 <div className="movie-page-title">

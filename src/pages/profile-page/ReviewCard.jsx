@@ -145,7 +145,7 @@ function ReviewCard({ reviewId, page }) {
               <Image
                 className="img-thumbnail"
                 width="80%"
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}></Image>
+                src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}></Image>
             </div>
           )}
 
