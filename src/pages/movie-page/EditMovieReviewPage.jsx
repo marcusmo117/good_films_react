@@ -5,6 +5,8 @@ import styles from "./MoviePage.scss";
 import movieApis from "../../utils/movie";
 import reviewApis from "../../utils/review";
 import EditMovieReview from "./EditMovieReview";
+import { Tooltip } from "@mui/material";
+
 
 function EditMovieReviewPage() {
     const token = "Bearer " + localStorage.getItem("user_token")
@@ -45,23 +47,31 @@ function EditMovieReviewPage() {
       overview,
       vote_average,
       vote_count,
+      tagline,
+      averageRatingGF,
+      numRatings,
     } = movie;
     console.log(movie);
   
     return (
-      <div className="movie">
+      <div className="movie-page">
         <Container>
-          <h1>{name ? name : title}</h1>
           <Row>
-            <Col md={3}>
-              <img src={`https://image.tmdb.org/t/p/original${poster_path}`} alt="movie-poster"></img>
+            <Col md={4}>
+              <img src={`https://image.tmdb.org/t/p/w500${poster_path}`} alt="movie-poster"></img>
             </Col>
-            <Col md={9}>
-              <p>Overview: {overview}</p>
-              <p>Release Date: {release_date}</p>
-              <p>Duration: {runtime} mins</p>
-              <p>Average Vote Score: {vote_average}</p>
-              <p>No. of Votes: {vote_count}</p>
+            <Col md={8}>
+              <div className="movie-page-title">
+                <h1>{name ? name : title}</h1>
+                <Tooltip title="Release date" placement="top">
+                  <span><i class="fa-regular fa-calendar"></i>{release_date}</span>
+                </Tooltip>
+                <Tooltip title="Duration" placement="top">
+                  <span><i class="fa-regular fa-clock"></i>{runtime} mins</span>
+                </Tooltip>
+              </div>
+                <h5>{tagline}</h5>
+                <p>{overview}</p>
               <div><EditMovieReview review = {review} /></div>
             </Col>
           </Row>
