@@ -99,6 +99,7 @@ function ProfilePage(props) {
               currentUserProfile={currentUserProfile}
               setCurrentUserProfile={setCurrentUserProfile}
               setFollowState={props.setFollowState}
+              followState={props.followState}
             />
           )}
           <FollowingModal

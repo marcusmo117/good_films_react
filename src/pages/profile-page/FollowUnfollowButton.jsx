@@ -7,7 +7,8 @@ function FollowUnfollowButton({
   profileInViewUsername,
   currentUserProfile,
   setCurrentUserProfile,
-  setFollowState
+  setFollowState,
+  followState
 }) {
   const [isFollowing, setIsFollowing] = useState(false);
   const token = "Bearer " + localStorage.getItem("user_token");
@@ -42,12 +43,12 @@ function FollowUnfollowButton({
   const updateFollowing = (e) => {
     if (e.target.innerText === "Follow") {
       updateFollowingBackend("follow")
-      setFollowState("follow");
+      setFollowState(followState + 1);
       console.log('button running')
       return;
     }
     updateFollowingBackend("unfollow")
-    setFollowState("unfollow");
+    setFollowState(followState - 1);
     return;
   };
 

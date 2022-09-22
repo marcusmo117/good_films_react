@@ -30,7 +30,7 @@ function App() {
   const [tokenState, setTokenState] = useState();
   const [user, setUser] = useState();
   const [profile, setProfile] = useState({});
-  const [followState, setFollowState] = useState(null);
+  const [followState, setFollowState] = useState(0);
 
   const token = localStorage.getItem("user_token");
   const tokenToSend = "Bearer " + token;
@@ -106,7 +106,11 @@ function App() {
         <Route
           path="/profiles/:username"
           element={
-            <Auth component={ProfilePage} setFollowState={setFollowState} />
+            <Auth
+              component={ProfilePage}
+              setFollowState={setFollowState}
+              followState={followState}
+            />
           }
         />
         <Route
