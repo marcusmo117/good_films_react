@@ -32,7 +32,7 @@ function Auth(props) {
 
     return (
         // props.component refers to components that is put in on app.jsx
-        <props.component setFollowState={props.setFollowState}></props.component>
+        <props.component setFollowState={props.setFollowState} followState={props.followState}></props.component>
     )
 }
 
