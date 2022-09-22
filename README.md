@@ -34,17 +34,17 @@ Check us out at [Good Films](https://marcusmo117.github.io/good_films_react/#/mo
 
 ## Routes
 
-| Page           | Front End URL               |
-| -------------- | --------------------------- |
-| Register       | /register                   |
-| Login          | /register                   |
-| Home/User Feed | /                           |
-| Movies         | /movies                     |
-|                | /movies/:movieId            |
-|                | /movies/:genreName/:genreId |
-| Reviews        | /reviews/:reviewId          |
-| Reviews        | /reviews/:reviewId/edit     |
-| Profiles       | /profile/:userId            |
+| Page           | Front End URL               | Methods                 |
+| -------------- | --------------------------- | ----------------------- |
+| Register       | /register                   | New                     |
+| Login          | /register                   | New                     |
+| Home/User Feed | /                           | Get                     |
+| Movies         | /movies                     | Get                     |
+|                | /movies/:genreName/:genreId | Get                     |
+|                | /movies/:movieId            | Get, Show, Post         |
+| Reviews        | /reviews/:reviewId          | Get, Show               |
+|                | /reviews/:reviewId/edit     | Get, Show, Edit, Delete |
+| Profiles       | /profile/:userId            | Get, Show, Put, Delete  |
 
 ## Folder Structure
 
