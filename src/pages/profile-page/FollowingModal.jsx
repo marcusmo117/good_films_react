@@ -7,7 +7,7 @@ import profileApis from "../../utils/profile";
 
 function FollowingModal({ followees, profileInViewUsername, page }) {
   const [show, setShow] = useState(false);
-  const [usersHairLength, setUsersHairLength] = useState([]);
+  // const [usersHairLength, setUsersHairLength] = useState([]);
 
   // useEffect(() => {
   //   console.log("followees changing", followees);
@@ -15,29 +15,29 @@ function FollowingModal({ followees, profileInViewUsername, page }) {
 
   useEffect(() => {
     setShow(false);
-    const fetchUsersGender = async () => {
-      try {
-        const hairLengths = await Promise.all(
-          followees.map(async (followee) => {
-            const gender = await profileApis.getGender(followee);
-            console.log("followee", followee);
-            console.log("gender", gender);
-            const hairLength = gender.data.gender === "female" ? "longHair" : "shortHair";
-            return hairLength;
-          })
-        );
+    // const fetchUsersGender = async () => {
+    //   try {
+    //     const hairLengths = await Promise.all(
+    //       followees.map(async (followee) => {
+    //         const gender = await profileApis.getGender(followee);
+    //         console.log("followee", followee);
+    //         console.log("gender", gender);
+    //         const hairLength = gender.data.gender === "female" ? "longHair" : "shortHair";
+    //         return hairLength;
+    //       })
+    //     );
 
-        setUsersHairLength([...hairLengths]);
-      } catch (err) {
-        setUsersHairLength(Array(followees.length).fill("shortHair"));
-      }
-    };
-    fetchUsersGender();
+    //     setUsersHairLength([...hairLengths]);
+    //   } catch (err) {
+    //     setUsersHairLength(Array(followees.length).fill("shortHair"));
+    //   }
+    // };
+    // fetchUsersGender();
   }, [profileInViewUsername]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  console.log("users hair length", usersHairLength);
+  // console.log("users hair length", usersHairLength);
 
   return (
     <>
@@ -56,7 +56,7 @@ function FollowingModal({ followees, profileInViewUsername, page }) {
         </Modal.Header>
         <Modal.Body>
           <ul>
-            {usersHairLength.length ? (
+            {followees ? (
               followees.map((followee, idx) => (
                 <li key={followee}>
                   <Link
@@ -65,7 +65,7 @@ function FollowingModal({ followees, profileInViewUsername, page }) {
                     style={{ textDecoration: "none" }}>
                     <img
                       className="navbar-avatar"
-                      src={`https://avatars.dicebear.com/api/avataaars/${followee}.svg?top=${usersHairLength[idx]}&facialHairChance=0&size=50&radius=50`}></img>
+                      src={`https://avatars.dicebear.com/api/avataaars/${followee}.svg?size=50&radius=50`}></img>
 
                     {followee}
                   </Link>

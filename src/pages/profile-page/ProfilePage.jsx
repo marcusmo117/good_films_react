@@ -48,20 +48,20 @@ function ProfilePage(props) {
         toast.error(err.response.data.error);
       }
     };
-    const fetchUserGender = async () => {
-      try {
-        const response = await profileApis.getGender(params.username);
-        setUserHairLength(response.data.gender === "female" ? "longHair" : "shortHair");
-      } catch (err) {
-        setUserHairLength("shortHair");
-      }
-    };
+    // const fetchUserGender = async () => {
+    //   try {
+    //     const response = await profileApis.getGender(params.username);
+    //     setUserHairLength(response.data.gender === "female" ? "longHair" : "shortHair");
+    //   } catch (err) {
+    //     setUserHairLength("shortHair");
+    //   }
+    // };
 
     // setIsFollowing(false);
     fetchProfile("profileInView", params.username);
     fetchProfile("currentUser", currentUserUsername);
     fetchAllUsers();
-    fetchUserGender();
+    // fetchUserGender();
   }, [params.username]);
 
   if (errorMsg) {
@@ -82,13 +82,16 @@ function ProfilePage(props) {
         </Row>
 
         <div className="profile mt-5">
-          {userHairLength ? (
+          <img
+            className="review-card-avatar"
+            src={`https://avatars.dicebear.com/api/avataaars/${profile.username}.svg?size=80&radius=50`}></img>{" "}
+          {/* {userHairLength ? (
             <img
               className="review-card-avatar"
               src={`https://avatars.dicebear.com/api/avataaars/${profile.username}.svg?top=${userHairLength}&facialHairChance=0&size=80&radius=50`}></img>
           ) : (
             <></>
-          )}{" "}
+          )}{" "} */}
           <h2>{profile.username}</h2>
           {!profile.isCurrentUser && (
             <FollowUnfollowButton

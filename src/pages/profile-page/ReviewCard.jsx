@@ -26,7 +26,7 @@ function ReviewCard({ reviewId, page }) {
   const currentUserUsername = jwt_decode(token).data.username;
   const [review, setReview] = useState({});
   const [movie, setMovie] = useState({});
-  const [userHairLength, setUserHairLength] = useState(null);
+  // const [userHairLength, setUserHairLength] = useState(null);
   const [areButtonsVisible, setAreButtonsVisible] = useState(false);
   const [openCommentBox, setOpenCommentBox] = useState(false);
   const params = useParams();
@@ -49,22 +49,22 @@ function ReviewCard({ reviewId, page }) {
       } catch (err) {}
     };
 
-    const fetchUserGender = async () => {
-      try {
-        const response = await profileApis.getGender(review.authorUserId.username);
+    // const fetchUserGender = async () => {
+    //   try {
+    //     const response = await profileApis.getGender(review.authorUserId.username);
 
-        setUserHairLength(response.data.gender === "female" ? "longHair" : "shortHair");
-      } catch (err) {
-        setUserHairLength("shortHair");
-      }
-    };
+    //     setUserHairLength(response.data.gender === "female" ? "longHair" : "shortHair");
+    //   } catch (err) {
+    //     setUserHairLength("shortHair");
+    //   }
+    // };
     if (review.authorUserId && page === "review-page") {
       if (review.authorUserId.username === currentUserUsername) {
         setAreButtonsVisible(true);
       }
     }
     fetchMovie();
-    fetchUserGender();
+    // fetchUserGender();
   }, [review]);
 
   const deleteReviewBackend = async () => {
@@ -87,7 +87,13 @@ function ReviewCard({ reviewId, page }) {
         <Card.Header>
           <Row className="header">
             <Col md="auto pe-1">
-              {userHairLength ? (
+              <img
+                className="review-card-avatar"
+                src={`https://avatars.dicebear.com/api/avataaars/${
+                  review.authorUserId && review.authorUserId.username
+                }.svg?size=60&radius=50`}></img>
+
+              {/* {userHairLength ? (
                 <img
                   className="review-card-avatar"
                   src={`https://avatars.dicebear.com/api/avataaars/${
@@ -95,7 +101,7 @@ function ReviewCard({ reviewId, page }) {
                   }.svg?top=${userHairLength}&facialHairChance=0&size=60&radius=50`}></img>
               ) : (
                 <></>
-              )}
+              )} */}
             </Col>
             <Col md="auto" className="align-self-center ps-0">
               <LinkContainer

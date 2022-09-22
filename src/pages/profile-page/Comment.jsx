@@ -6,20 +6,20 @@ import datetimeToRelativeTime from "../../utils/datetime/relativeCalendar";
 import { LinkContainer } from "react-router-bootstrap";
 
 function Comment({ comment }) {
-  const [userHairLength, setUserHairLength] = useState(null);
+  // const [userHairLength, setUserHairLength] = useState(null);
 
-  useEffect(() => {
-    const fetchUserGender = async () => {
-      try {
-        const response = await profileApis.getGender(comment.authorUserId.username);
-        setUserHairLength(response.data.gender === "female" ? "longHair" : "shortHair");
-      } catch (err) {
-        setUserHairLength("shortHair")
+  // useEffect(() => {
+  //   const fetchUserGender = async () => {
+  //     try {
+  //       const response = await profileApis.getGender(comment.authorUserId.username);
+  //       setUserHairLength(response.data.gender === "female" ? "longHair" : "shortHair");
+  //     } catch (err) {
+  //       setUserHairLength("shortHair")
 
-      }
-    };
-    fetchUserGender();
-  }, []);
+  //     }
+  //   };
+  //   fetchUserGender();
+  // }, []);
   return (
     <>
       <Row className="d-flex justify-content-center">
@@ -28,13 +28,17 @@ function Comment({ comment }) {
             <Card.Body className="py-3 border-0" style={{ backgroundColor: "#f8f9fa" }}>
               <Row className="header">
                 <Col md="auto pe-1">
-                  {userHairLength ? (
+                  {/* {userHairLength ? (
                     <img
                       className="review-card-avatar"
                       src={`https://avatars.dicebear.com/api/avataaars/${comment.authorUserId.username}.svg?top=${userHairLength}&facialHairChance=0&size=40&radius=50`}></img>
                   ) : (
                     <></>
-                  )}{" "}
+                  )}{" "} */}
+
+                  <img
+                    className="review-card-avatar"
+                    src={`https://avatars.dicebear.com/api/avataaars/${comment.authorUserId.username}.svg?size=40&radius=50`}></img>
                 </Col>
                 <Col md="auto" className="align-self-center ps-0">
                   <LinkContainer to={`/profiles/${comment.authorUserId.username}`}>
