@@ -7,6 +7,7 @@ import ReviewCard from "../profile-page/ReviewCard";
 import ErrorPage from "../../components/error-page/ErrorPage";
 import jwt_decode from "jwt-decode";
 import { CircularProgress } from "@mui/material";
+import styles from "./UserFeedPage.scss";
 
 function UserFeedPage() {
   const [userStatus, setUserStatus] = useState("old");
@@ -63,7 +64,7 @@ function UserFeedPage() {
 
   return (
     <div className="user-feed-page">
-      <Container>
+      <Container className="container-restrict-width">
         {userStatus === "new" ? (
           <div>
             <h1>Welcome!</h1>
@@ -81,22 +82,18 @@ function UserFeedPage() {
           <></>
         )}
         <div className="reviews">
-          {!userFeedReviewIds ?
-            (
-              < CircularProgress />
-            )
-          :
-            (
-              userFeedReviewIds &&
-                userFeedReviewIds
-                  .sort((reviewA, reviewB) => {
-                    return new Date(reviewB.createdAt) - new Date(reviewA.createdAt);
-                  })
-                  .map((review) => (
-                    <ReviewCard key={review._id} reviewId={review._id} page={"user-feed-page"} />
-                  ))
-            )
-          }
+          {!userFeedReviewIds ? (
+            <CircularProgress />
+          ) : (
+            userFeedReviewIds &&
+            userFeedReviewIds
+              .sort((reviewA, reviewB) => {
+                return new Date(reviewB.createdAt) - new Date(reviewA.createdAt);
+              })
+              .map((review) => (
+                <ReviewCard key={review._id} reviewId={review._id} page={"user-feed-page"} />
+              ))
+          )}
         </div>
       </Container>
     </div>
