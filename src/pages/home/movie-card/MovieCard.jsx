@@ -11,7 +11,7 @@ function MovieCard(props) {
     <div>
       <Link to={`/movies/${id}`}>
         <Card className="movie-card">
-          <Card.Img src={`https://image.tmdb.org/t/p/original${poster_path}`} alt="movie poster" />
+          <Card.Img src={`https://image.tmdb.org/t/p/w500${poster_path}`} alt="movie poster" />
         </Card>
       </Link>
     </div>
